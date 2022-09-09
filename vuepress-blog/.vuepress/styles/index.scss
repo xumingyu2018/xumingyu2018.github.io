@@ -1,0 +1,45 @@
+// 博客主页渲染
+.blog {
+  .blog-hero {
+    // margin-bottom: 0;
+    .hero-image {
+      border-radius: 50%;
+      height: 120px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      padding-top: 6px;
+      height: 80px;
+      width: 350px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 1.7rem !important;
+    }
+    p {
+      padding-bottom: 6px;
+      margin: 0 auto !important;
+      width: 350px;
+      transform: translateY(-35px) !important;
+      border-radius: 0 0 10px 10px;
+    }
+    .slide-down-button {
+      display: none !important;
+    }
+  }
+}
+
+// TODO 隐藏了的话，文章、标签都看不到，手机端显示不完整。
+// // 博客主页下半部分隐藏
+// .blog-page-wrapper {
+//   display: none !important;
+// }
+
+// // 隐藏中英文转换
+// .i18n-dropdown {
+//   display: none !important;
+// }
+
+// TODO 版权
+.copyright {
+  display: none !important;
+}

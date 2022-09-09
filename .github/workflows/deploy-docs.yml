@@ -1,0 +1,41 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      # 当 main 分支发生提交时触发 actions
+      - main
+
+jobs:
+  deploy-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          # if your docs needs submodules, uncomment the following line
+          # submodules: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+
+      # 安装依赖
+      - name: Install Deps
+        run: npm install
+
+      # 构建
+      - name: Build Docs
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
+        run: npm run docs:build
+
+      - name: Deploy Docs
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          # gh-pages 分支下的构建目录
+          branch: gh-pages
+          folder: docs/.vuepress/dist
