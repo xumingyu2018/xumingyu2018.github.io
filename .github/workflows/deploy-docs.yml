@@ -38,4 +38,4 @@ jobs:
         with:
           # gh-pages 分支下的构建目录
           branch: gh-pages
-          folder: docs/.vuepress/dist
+          folder: vuepress-blog/.vuepress/dist
