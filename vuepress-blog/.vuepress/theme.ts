@@ -39,7 +39,6 @@ export default hopeTheme({
     medias: {
       Gitee: 'https://gitee.com/NevermoreYu',
       GitHub: 'https://github.com/xumingyu2018',
-      Zhihu: 'https://example.com',
     },
     description: '一个后端开发者',
     intro: '/about.html',

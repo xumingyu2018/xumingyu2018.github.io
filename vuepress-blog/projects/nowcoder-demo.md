@@ -11,7 +11,7 @@ tag:
 
 ## 主页讨论区分页查询功能
 
-## 1.首先设计Dao层接口（实体类略）
+### 1.首先设计Dao层接口（实体类略）
 
 以下是查询功能不包括分页 （其中userId在DiscussPost类中作为外键）
 
@@ -64,7 +64,7 @@ int selectDiscussRows(@Param("userId")int userId);
 
 ```
 
-## 2.然后设计Service层调用Dao层接口
+### 2.然后设计Service层调用Dao层接口
 
 ```java
   @Autowired
@@ -79,7 +79,7 @@ int selectDiscussRows(@Param("userId")int userId);
   }
 ```
 
-## 3.其次封装分页功能
+### 3.其次封装分页功能
 
 封装分页功能相关信息在Page类！！
 
@@ -165,7 +165,7 @@ public class Page {
 }
 ```
 
-## 4.最后设计Controller层
+### 4.最后设计Controller层
 
 ```java
     @Autowired
@@ -212,9 +212,9 @@ public class Page {
     }
 ```
 
-## 5.前端页面设计（Thymeleaf）
+### 5.前端页面设计（Thymeleaf）
 
-### 5.1查询页面
+#### 5.1查询页面
 
 ```html
   <!-- 帖子列表 -->
@@ -246,7 +246,7 @@ public class Page {
   </ul>
 ```
 
-### 5.2分页功能页面
+#### 5.2分页功能页面
 
 ```html
   <!-- 分页 -->
@@ -503,7 +503,7 @@ public Map<String,Object> register(User user){
 }
 ```
 
-####   3.2激活邮件业务
+#### 3.2激活邮件业务
 
 ```java
 /激活邮件功能* */
@@ -933,8 +933,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 }
 ```
 
-### 1.首先创建两个工具类降低耦合（Request获取Cookie工具类，获取凭证ticket多线程工具类）
+### 1.首先创建两个工具类降低耦合
 
+（Request获取Cookie工具类，获取凭证ticket多线程工具类）
 注意:
 
 1. ThreadLocal采用线程隔离的方式存放数据，可以避免多线程之间出现数据访问冲突。
@@ -1061,7 +1062,7 @@ th:if="\${loginUser!=null}" 存在凭证显示\<li>,不存在则不显示
 </li>
 ```
 
-## 拦截未登录页面的路径访问(自定义拦截器注解)
+## 拦截未登录页面的路径访问
 
 常用的元注解：
 
@@ -1072,7 +1073,9 @@ th:if="\${loginUser!=null}" 存在凭证显示\<li>,不存在则不显示
 
 注意： 若有2个拦截器，拦截器执行顺序为注册在WebMvcConfig配置类中的顺序
 
-### 1.自定义拦截方法类注解(annotation包)并加在需要拦截的方法上
+### 1.自定义拦截器注解
+
+自定义拦截方法类注解(annotation包)并加在需要拦截的方法上
 
 ```java
 @Target(ElementType.METHOD)
@@ -1572,7 +1575,7 @@ public class RedisKeyUtil {
     }
 ```
 
-# 会话管理（暂时仅有demo）
+## 会话管理（暂时仅有demo）
 
 ### 1.面试题Cookie和Session的区别？
 
@@ -1649,7 +1652,7 @@ public String getSession(HttpSession session){
 }
 ```
 
-# 上传头像功能
+## 上传头像功能
 
 注意：
 
@@ -1661,7 +1664,7 @@ public String getSession(HttpSession session){
 
 访问路径必须是符合HTTP协议的Web路径
 
-## 1.编写Service和Dao层
+### 1.编写Service和Dao层
 
 ```java
 //Dao层
@@ -1677,7 +1680,7 @@ public int updateHeader(int userId,String headerUrl){
 }
 ```
 
-## 2.编程Controller层
+### 2.编程Controller层
 
 ```java
 @Controller
@@ -1780,7 +1783,7 @@ public class UserController {
   }
 ```
 
-## 3.前端核心页面
+### 3.前端核心页面
 
 ```html
 <form class="mt-5" method="post" enctype="multipart/form-data" th:action="@{/user/upload}">
@@ -1796,7 +1799,7 @@ public class UserController {
 </form>
 ```
 
-# 过滤敏感词
+## 过滤敏感词
 
 前缀树：
 
@@ -1988,7 +1991,7 @@ public class SensitiveFilter {
 </dependency>
 ```
 
-# 发布贴子
+## 发布贴子功能
 
 核心 ：ajax异步：整个网页不刷新，访问服务器资源返回结果，实现局部的刷新。
 
@@ -2055,7 +2058,7 @@ public class SensitiveFilter {
 
 ```
 
-## 1.编写Mapper层
+### 1.编写Mapper层
 
 ```xml
 int insertDiscussPost(DiscussPost discussPost);
@@ -2069,7 +2072,7 @@ int insertDiscussPost(DiscussPost discussPost);
 </insert>
 ```
 
-## 2.编写Service层
+### 2.编写Service层
 
 ```java
   public int addDiscussPost(DiscussPost post){
@@ -2089,7 +2092,9 @@ int insertDiscussPost(DiscussPost discussPost);
 
 ```
 
-## 3.编写Controller层(异步请求要加@ResponseBody,且不用在Controller层用Model，用Js)
+### 3.编写Controller控制层
+
+(异步请求要加@ResponseBody,且不用在Controller层用Model，用Js)
 
 ```java
   @Autowired
@@ -2119,7 +2124,7 @@ int insertDiscussPost(DiscussPost discussPost);
   }
 ```
 
-## 4.编写前端异步JS
+### 4.编写前端异步JS
 
 注意：\$.parseJSON(data) →通过jQuery，将服务端返回的JSON格式的字符串转为js对象
 
@@ -2161,9 +2166,9 @@ function publish() {
 }
 ```
 
-# 查看帖子详情
+## 查看帖子详情功能
 
-## 1.编写Mapper层
+### 1.编写Mapper层
 
 ```xml
 DiscussPost selectDiscussPostById(int id);
@@ -2175,7 +2180,7 @@ DiscussPost selectDiscussPostById(int id);
 </select>
 ```
 
-## 2.编写Service层
+### 2.编写Service层
 
 ```java
   public DiscussPost findDiscussPostById(int id){
@@ -2183,7 +2188,7 @@ DiscussPost selectDiscussPostById(int id);
   }
 ```
 
-## 3.编写Controller层
+### 3.编写Controller层
 
 ```java
   @RequestMapping(value = "/detail/{discussPostId}", method = RequestMethod.GET)
@@ -2199,7 +2204,9 @@ DiscussPost selectDiscussPostById(int id);
   }
 ```
 
-## 4.编写前端核心部分（进入详情链接及Controller层中的model）
+### 4.编写前端核心部分
+
+（进入详情链接及Controller层中的model）
 
 ```html
 <!--前端点击进入详情的链接-->
@@ -2214,11 +2221,11 @@ th:text="${#dates.format(post.getCreateTime(),'yyyy-MM-dd HH:mm:ss')}"   <!--发
 th:utext="${post.getContent()}"   <!--发帖内容-->
 ```
 
-# 事务管理
+## 事务管理
 
-## 1.概念
+### 1.概念
 
-### 1.1事务的特性
+#### 1.1事务的特性
 
 原子性：即事务是应用中不可再分的最小执行体。
 
@@ -2228,7 +2235,7 @@ th:utext="${post.getContent()}"   <!--发帖内容-->
 
 持久性：事务一旦提交，对数据所做的任何改变都要记录到永久存储器。
 
-### 1.2事务的四种隔离级别
+#### 1.2事务的四种隔离级别
 
 Read Uncommitted： 读未提交（级别最低）
 
@@ -2238,7 +2245,7 @@ Repeatable Read： 可重复读
 
 Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 
-### 1.3并发异常
+#### 1.3并发异常
 
 - 第一类丢失更新
 
@@ -2250,7 +2257,7 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 
 - 幻读
 
-## 2.Spring声明式事务
+### 2.Spring声明式事务
 
 方法： 1.通过XML配置    2.通过注解@Transaction，如下：
 
@@ -2263,7 +2270,9 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 ```
 
-## 3.Spring编程式事务(通常用来管理中间某一小部分事务)
+### 3.Spring编程式事务
+
+(通常用来管理中间某一小部分事务)
 
 方法： 通过TransactionTemplate组件执行SQL管理事务，如下：
 
@@ -2290,9 +2299,9 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
  }
 ```
 
-# 评论功能
+## 评论功能
 
-## 显示评论（评论和评论中的回复）
+显示评论（评论和评论中的回复）
 
 ### 1.编写Dao层接口
 
@@ -2337,7 +2346,9 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
   }
 ```
 
-### 3.编写Controller控制层（接查看帖子详情，如上）难点（类似于套娃）
+### 3.编写Controller控制层
+
+（接查看帖子详情，如上）难点（类似于套娃）
 
 ```java
   @RequestMapping(value = "/detail/{discussPostId}", method = RequestMethod.GET)
@@ -2433,7 +2444,7 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
   }
 ```
 
-### 4.编写前端Thymeleaf页面（核心部分）
+### 4.编写前端Thymeleaf核心页面
 
 注意： xxxStat—>Thymeleaf内置对象
 
@@ -2489,9 +2500,13 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 最后复用分页：th:replace="index::pagination"
 ```
 
-## 添加评论  (用到事务管理)
+## 添加评论功能
 
-### 1.编写Dao层 （1.增加评论数据CommentMapper 2.修改帖子评论数量DiscussPostMapper）
+(用到事务管理)
+
+### 1.编写Dao层
+
+（1.增加评论数据CommentMapper 2.修改帖子评论数量DiscussPostMapper）
 
 ```java
  //CommentMapper 
@@ -2560,7 +2575,7 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
   }
 ```
 
-### 4.编写Thymleaf前端页面（核心）
+### 4.编写Thymleaf前端核心页面
 
 ```html
 <!--帖子评论框-->
@@ -2597,9 +2612,9 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 </form>
 ```
 
-# 私信功能
+## 私信功能
 
-## 显示私信列表（难度在写SQL）
+显示私信列表（难度在写SQL）
 
 ### 1.编写Dao层
 
@@ -2797,7 +2812,7 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 
 ```
 
-### 5.编写Thymeleaf前端页面（核心）
+### 5.编写Thymeleaf前端核心页面
 
 #### 5.1私信列表页面
 
@@ -2840,7 +2855,9 @@ Serializable： 串行化（级别最高 ，*性能最低，因为要加锁）*
 
 ```
 
-## 发送私信功能（异步）
+## 发送私信功能
+
+(异步)
 
 ### 1.编写Dao层
 
@@ -2990,7 +3007,9 @@ function send_letter() {
 1. 引入pom,配置Yaml
 2. 因为访问的是Redis，无需编写Dao层
 
-### 1.创建RedisKeyUtil工具类(统一格式化redis的key)
+### 1.创建RedisKeyUtil工具类
+
+(统一格式化redis的key)
 
 k:v = like:entity:entityType:entityId -> set(userId)
 
@@ -3123,7 +3142,9 @@ function like(btn, entityType, entityId) {
   </a>
 ```
 
-## 我收到的赞（基于点赞基础上修改）
+## 我收到的赞
+
+（基于点赞基础上修改）
 
 注意：
 
@@ -3146,7 +3167,9 @@ k:v = like:user:userId -> set(int)
     }
 ```
 
-### 2.修改Service业务层（添加entityUserId属性，事务和查询获用户赞个数）
+### 2.修改Service业务层
+
+（添加entityUserId属性，事务和查询获用户赞个数）
 
 ```java
   @Autowired
@@ -3192,7 +3215,9 @@ k:v = like:user:userId -> set(int)
     }
 ```
 
-### 3.修改LikeController层（添加entityUserId属性）
+### 3.修改LikeController层
+
+（添加entityUserId属性）
 
 ```java
     @RequestMapping(value = "/like", method = RequestMethod.POST)
@@ -3425,7 +3450,7 @@ public class RedisKeyUtil {
     }
 ```
 
-### 4.编写JS异步请求和前端页面（核心部分）
+### 4.编写JS异步请求和前端核心页面
 
 ```javascript
 $(function(){
@@ -3473,7 +3498,9 @@ function follow() {
 <span>关注者 <a th:text="${followerCount}">123</a> 人</span>
 ```
 
-## 关注列表（同粉丝列表）
+## 关注列表
+
+（同粉丝列表）
 
 ### 1.编写Service层（查询某用户关注的人）
 
@@ -3546,14 +3573,14 @@ function follow() {
 
 ### 3.编写前端页面
 
-3.1 带参数路径跳转
+#### 3.1带参数路径跳转
 
 ```html
 <span>关注了 <a th:href="@{|/followees/${user.id}|}" th:text="${followeeCount}">5</a> 人</span>
 <span>关注者 <a th:href="@{|/followers/${user.id}|}" th:text="${followerCount}">123</a> 人</span>
 ```
 
-3.2  列表页面
+#### 3.2列表页面
 
 ```html
   <li th:each="map:${users}">
@@ -3578,7 +3605,9 @@ function follow() {
 
 # 系统通知功能（Kafka消息队列）
 
-## 发送系统通知功能（点赞、关注、评论时通知）
+## 发送系统通知功能
+
+（点赞、关注、评论时通知）
 
 ### 1.编写Kafka消息队列事件Event实体类
 
@@ -3876,7 +3905,7 @@ function like(btn, entityType, entityId, entityUserId, postId) {
 
 ## 查询系统通知
 
-### 1.编写Dao层接口(及Mapper.xml)
+### 1.编写Dao层接口
 
 ```java
 /
@@ -4153,7 +4182,7 @@ public class MessageInterceptor implements HandlerInterceptor {
   }
 ```
 
-### 5.编写前端页面（核心部分）
+### 5.编写前端核心页面
 
 #### 5.1系统通知页
 
@@ -4278,9 +4307,9 @@ public class MessageInterceptor implements HandlerInterceptor {
 
 ```
 
-# 搜索功能（Elasticsearch+Kafka）
+## 搜索功能（Elasticsearch+Kafka）
 
-## 1.编写实体类映射到Elasticsearch服务器
+### 1.编写实体类映射到Elasticsearch服务器
 
 ```java
 // Elasticsearch表名
@@ -4319,7 +4348,9 @@ public class DiscussPost {
     private double score;
 ```
 
-## 2.编写xxxRepository接口继承ElasticsearchRepository\<Class, Integer>
+### 2.编写xxxRepository接口
+
+(继承ElasticsearchRepository<Class, Integer>)
 
 ```java
 /
@@ -4333,7 +4364,7 @@ public interface DiscussPostRepository extends ElasticsearchRepository<DiscussPo
 }
 ```
 
-## 3.编写ElasticsearchService业务层
+### 3.编写ElasticsearchService业务层
 
 ```java
 /
@@ -4431,7 +4462,7 @@ public class ElasticsearchService {
 }
 ```
 
-## 4.修改发布帖子和增加评论Controller
+### 4.修改发布帖子和增加评论Controller
 
 发布帖子时，将帖子异步提交到Elasticsearch服务器
 
@@ -4488,7 +4519,9 @@ public class ElasticsearchService {
     }
 ```
 
-## 5.在消费组件中增加方法（消费帖子发布事件）
+### 5.在消费组件中增加方法
+
+（消费帖子发布事件）
 
 ```java
     /
@@ -4513,7 +4546,7 @@ public class ElasticsearchService {
     }
 ```
 
-## 6.编写SearchController类
+### 6.编写SearchController类
 
 ```java
 @Controller
@@ -4559,7 +4592,7 @@ public class SearchController implements CommunityConstant {
 }
 ```
 
-## 7.编写前端页面（核心部分）
+### 7.编写前端核心页面
 
 ```html
   <!-- 搜索表单 -->
@@ -4591,9 +4624,9 @@ public class SearchController implements CommunityConstant {
 </li>
 ```
 
-# 权限控制
+## 权限控制
 
-## 部署SpringSecurity权限控制
+部署SpringSecurity权限控制
 
 ### 1.配置SecurityConfig类
 
@@ -4684,7 +4717,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
 }
 ```
 
-### 2.编写UserService增加自定义登录认证方法绕过security自带认证流程
+### 2.编写UserService
+
+(增加自定义登录认证方法绕过security自带认证流程)
 
 ```java
     /绕过Security认证流程，采用原来的认证方案,封装认证结果/
@@ -4878,7 +4913,9 @@ function publish() {
     }
 ```
 
-### 3.编写Kafka消费者中删除（TOPIC\_DELETE）的主题事件
+### 3.编写Kafka消费者中
+
+删除（TOPIC\_DELETE）的主题事件
 
 ```java
     /帖子删除事件/
@@ -4926,7 +4963,7 @@ function publish() {
           .and().csrf().disable();
 ```
 
-### 5.编写前端代码（核心部分）
+### 5.编写前端核心代码
 
 #### 5.1引用pom.xml，使用sec:xxx
 
@@ -5014,9 +5051,11 @@ function setDelete() {
 }
 ```
 
-# 网站数据统计（Redis：HyperLogLog、BitMap）
+## 网站数据统计
 
-## 1.编写RedisUtil规范Key值
+（Redis：HyperLogLog、BitMap）
+
+### 1.编写RedisUtil规范Key值
 
 ```java
     // UV (网站访问用户数量---根据Ip地址统计(包括没有登录的用户))
@@ -5057,7 +5096,7 @@ function setDelete() {
     }
 ```
 
-## 2.编写DataService业务层
+### 2.编写DataService业务层
 
 ```java
     @Autowired
@@ -5139,7 +5178,7 @@ function setDelete() {
         });}
 ```
 
-## 3.在DataInterceptor拦截器中调用Service(每次请求最开始调用)
+### 3.在DataInterceptor拦截器中调用Service(每次请求最开始调用)
 
 ```java
 @Component
@@ -5178,7 +5217,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 }
 ```
 
-## 4.编写DataController用以渲染模板
+### 4.编写DataController用以渲染模板
 
 ```java
     /
@@ -5214,7 +5253,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 ```
 
-## 5.编写SecurityConfig进行权限控制
+### 5.编写SecurityConfig进行权限控制
 
 ```java
     .antMatchers(
@@ -5226,7 +5265,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     )
 ```
 
-## 6.编写前端管理员专用页面（核心部分）
+### 6.编写前端管理员专用页面
 
 ```html
   <!-- 网站UV (活跃用户类似)--> 
@@ -5244,9 +5283,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
   </div>
 ```
 
-# 热帖排行（Quartz线程池、Redis）
+## 热帖排行
 
-## 1.编写RedisUtil规范Key值
+（Quartz线程池、Redis）
+
+### 1.编写RedisUtil规范Key值
 
 ```java
     // 热帖分数 (把需要更新的帖子id存入Redis当作缓存)
@@ -5260,9 +5301,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 ```
 
-## 2.处理发布、点赞、加精、评论时计算分数，将帖子id存入Key
+### 2.处理发布、点赞、加精、评论时计算分数，将帖子id存入Key
 
-### 2.1发布帖子时初始化分数
+#### 2.1发布帖子时初始化分数
 
 ```java
       /
@@ -5273,7 +5314,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
       redisTemplate.opsForSet().add(redisKey, post.getId());
 ```
 
-### 2.2点赞时计算帖子分数
+#### 2.2点赞时计算帖子分数
 
 ```java
       /
@@ -5286,7 +5327,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
       }
 ```
 
-### 2.3评论时计算帖子分数
+#### 2.3评论时计算帖子分数
 
 ```java
       if (comment.getEntityType() == ENTITY_TYPE_POST) {
@@ -5299,7 +5340,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
       }
 ```
 
-### 2.4加精时计算帖子分数
+#### 2.4加精时计算帖子分数
 
 ```java
       /
@@ -5310,7 +5351,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
       redisTemplate.opsForSet().add(redisKey, id);
 ```
 
-## 3.定义Quartz热帖排行Job
+### 3.定义Quartz热帖排行Job
 
 ```java
 /热帖排行定时刷新任务/
@@ -5391,7 +5432,7 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
 }
 ```
 
-## 4.配置Quartz的PostScoreRefreshJob
+### 4.配置Quartz的PostScoreRefreshJob
 
 ```java
     @Bean
@@ -5416,9 +5457,11 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
     }
 ```
 
-## 5.修改主页帖子显示(Mapper、Service、Controller)
+### 5.修改主页帖子显示
 
-### 5.1 Mapper
+(Mapper、Service、Controller中)
+
+#### 5.1 Mapper
 
 ```java
     // orderMode=0：最新  orderMode=1：最热
@@ -5445,7 +5488,7 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
     </select>
 ```
 
-### 5.2 Service
+#### 5.2 Service
 
 ```java
     public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit, int orderMode) {
@@ -5453,7 +5496,7 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
     }
 ```
 
-### 5.3 Controller
+#### 5.3 Controller
 
 ```java
     @RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -5483,7 +5526,7 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
     }
 ```
 
-## 6编写前端页面实现切换最新/最热帖子显示
+### 6.编写前端页面实现切换最新/最热帖子显示
 
 ```html
   <!-- 切换最新/最热帖子 -->
@@ -5495,7 +5538,9 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
   </li>
 ```
 
-# 文件上传至云服务器(七牛云服务器)
+# 文件上传至云服务器
+
+(绑定七牛云服务器)
 
 ## 绑定云服务器
 
@@ -5510,7 +5555,9 @@ public class PostScoreRefreshJob implements Job, CommunityConstant {
     </dependency>
 ```
 
-### 2.配置yml文件（服务器参数）
+### 2.配置yml文件
+
+（服务器参数）
 
 ```yaml
 # qiniu
@@ -5538,7 +5585,9 @@ qiniu:
 
 - 用户上传头像时，将表单数据提交给服务器
 
-### 1.修改文件上传相应的Controller(这里是UserController)
+### 1.修改文件上传相应的Controller
+
+(这里是UserController)
 
 ```java
     @LoginRequired//自定义注解
@@ -5632,7 +5681,9 @@ function upload() {
 
 - 分享时，服务端将自动生成的图片，直接提交给云服务器
 
-### 1.编写生成长图到本地Controller(使用消息队列处理并发)
+### 1.编写生成长图到本地Controller
+
+(使用消息队列处理并发)
 
 ```java
 /
@@ -5815,10 +5866,11 @@ public class ShareController implements CommunityConstant {
     }
 ```
 
-# Caffine本地缓存
-## 使用Caffine本地缓存优化网站性能(缓存主页热门帖子)
+## Caffine本地缓存
 
-## 1.缓存概念
+使用Caffine本地缓存优化网站性能(缓存主页热门帖子)
+
+### 1.缓存概念
 
 ![缓存概念](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/1_tj6xWjtzwR.PNG)
 
@@ -5830,7 +5882,7 @@ public class ShareController implements CommunityConstant {
 
 ![二级缓存](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/二级缓存_NRiwLsumxv.PNG)
 
-## 2.引入caffine依赖项
+### 2.引入caffine依赖项
 
 ```xml
         <!--caffeine本地缓存优化热门帖子-->
@@ -5841,7 +5893,7 @@ public class ShareController implements CommunityConstant {
         </dependency>
 ```
 
-## 3.编写yml配置caffine全局变量
+### 3.编写yml配置caffine全局变量
 
 ```yaml
 # caffeine本地缓存优化热门帖子
@@ -5852,7 +5904,7 @@ caffeine:
     expire-seconds: 180
 ```
 
-## 4.修改DiscussPostService业务层分页查询方法
+### 4.修改DiscussPostService业务层分页查询方法
 
 ```java
     /
@@ -5935,15 +5987,15 @@ caffeine:
     }
 ```
 
-# 统一处理异常
+## 统一处理异常
 
 ![异常处理方法](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/1_i21SWKVzkp.PNG)
 
-## 1.将error/404.html或500.html放在templates
+### 1.将error/404.html或500.html放在templates
 
 注意：springboot默认在templates资源路径下面新建error目录，添加404.html和500.html页面就会自动配置上错误页面自动跳转
 
-## 2.定义一个控制器通知组件，处理所有Controller所发生的异常
+### 2.定义一个控制器通知组件，处理所有Controller所发生的异常
 
 ```java
 @ControllerAdvice(annotations = Controller.class)
@@ -5979,9 +6031,11 @@ public String getErrorPage(){
 }
 ```
 
-# 统一记录日志
+## 统一记录日志
 
-## 1.AOP概念（面向切面编程）
+### 1.AOP概念
+
+（面向切面编程）
 
 常见的使用场景有：权限检查、记录日志、事务管理
 
@@ -6003,9 +6057,9 @@ Aspect：是一个用来封装切点和通知的组件
 
 ![SpringAOP](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/3_e4i508lART.PNG)
 
-## 2.AOP切面编程Demo示例
+### 2.AOP切面编程Demo示例
 
-### 2.1导入pom.xml
+#### 2.1导入pom.xml
 
 ```xml
 <dependency>
@@ -6016,7 +6070,7 @@ Aspect：是一个用来封装切点和通知的组件
 
 ```
 
-### 2.2编写Aspect类
+#### 2.2编写Aspect类
 
 ```java
 @Component
@@ -6060,7 +6114,7 @@ public class DemoAspect {
 }
 ```
 
-## 3.AOP实现统一记录日志
+### 3.AOP实现统一记录日志
 
 实现需求:
 
@@ -6096,9 +6150,11 @@ public class ServiceLogAspect {
 }
 ```
 
-# 项目监控（Springboot actuator）
+## 项目监控
 
-## 1.引入pom.xml依赖
+（Springboot actuator）
+
+### 1.引入pom.xml依赖
 
 ```xml
 <!-- actuator项目监控-->
@@ -6109,7 +6165,7 @@ public class ServiceLogAspect {
 </dependency>
 ```
 
-## 2.配置yml文件
+### 2.配置yml文件
 
 ```yaml
 # actuator项目监控
@@ -6120,7 +6176,9 @@ management:
         include: beans,database,info,health
 ```
 
-## 3.自定义监控id(database数据库监控)
+### 3.自定义监控id
+
+(database数据库监控)
 
 ```java
 /
@@ -6150,7 +6208,7 @@ public class DatabaseEndpoint {
     }}
 ```
 
-## 4.使用SpringSecurity设置访问权限
+### 4.使用SpringSecurity设置访问权限
 
 ```java
 .antMatchers(
