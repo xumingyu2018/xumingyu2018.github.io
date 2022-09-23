@@ -1,0 +1,5 @@
+
+User-agent:*
+Disallow:
+
+Sitemap: https://github.com/xumingyu2018/sitemap.xml
