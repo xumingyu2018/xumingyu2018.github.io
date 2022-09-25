@@ -3,13 +3,12 @@ import sidebar from './sidebar'
 import navbar from './navbar'
 
 export default hopeTheme({
-  // TODO 自己记得修改
+  // 
   hostname: 'https://github.com/xumingyu2018',
 
   author: {
     name: 'Nevermore毓',
-    // TODO 自己记得修改
-    url: 'https://mrhope.site',
+    url: 'https://xumingyu2018.github.io/',
   },
 
   // 纯净模式
