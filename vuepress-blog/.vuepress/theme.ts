@@ -8,7 +8,7 @@ export default hopeTheme({
 
   author: {
     name: 'Nevermore毓',
-    url: 'https://github.com/xumingyu2018',
+    url: 'https://mrhope.site',
   },
 
   // 纯净模式
