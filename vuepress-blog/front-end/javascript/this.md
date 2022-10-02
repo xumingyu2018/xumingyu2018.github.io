@@ -315,6 +315,7 @@ function Person(name) {
 
 - 如果箭头函数被非箭头函数包含：`this` 指向 **定义时所在的** 最近一层**非箭头函数**的 `this` 值
 - 如果箭头函数外层没有普通函数：`this` 指向全局作用域
+- 箭头函数不绑定this
 
 箭头函数的函数体是一层作用域，它的上层作用域即箭头函数定义所在的作用域
 
@@ -342,6 +343,26 @@ function foo2() {
   a()
 }
 // 打印 obj1
+```
+
+```js:no-line-numbers
+// 箭头函数场景应用
+var obj = {
+  data: [],
+  getData: function() {
+    setTimeout(() => {
+      var result = ["abc"]
+      this.data = result
+    }, 2000);
+
+    // 以前的写法
+    // var _this = this
+    // setTimeout(function() {
+    //   var result = ["abc"]
+    //   _this.data = result
+    // })
+  }
+}
 ```
 
 ## 规则优先级
