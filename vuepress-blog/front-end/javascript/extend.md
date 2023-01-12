@@ -213,7 +213,7 @@ function copyObject(obj) {
   return new Fn()
 }
 
-function createChild(original) {
+function createChild(original) {// 工厂函数
   let clone = copyObject(original)
   clone.parentMethod = function () {
     console.log(this.parentValue)

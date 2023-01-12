@@ -38,6 +38,6 @@ export default navbar([
   },
   {
     text: '加密文章',
-    link: '/encrypt/这是一篇加密文章',
+    link: '/encrypt/加密sql文件',
   },
 ])

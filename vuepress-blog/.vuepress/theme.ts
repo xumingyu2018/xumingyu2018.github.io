@@ -44,7 +44,7 @@ export default hopeTheme({
 
   encrypt: {
     config: {
-      '/encrypt/这是一篇加密文章.html': ['1234'],
+      '/encrypt/加密sql文件.html': ['9810'],
     },
   },
 
