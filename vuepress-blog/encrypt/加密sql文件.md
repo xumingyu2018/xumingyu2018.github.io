@@ -2,7 +2,7 @@
 title: 摄影约拍系统sql文件
 ---
 
-本文是摄影约拍系统的sql文件
+本篇文章是摄影约拍系统的sql文件
 
 ```sql:no-line-numbers
 /*
