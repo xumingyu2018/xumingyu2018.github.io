@@ -17,8 +17,8 @@ jobs:
           # 如果你文档需要 Git 子模块，取消注释下一行
           # submodules: true
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
+      - name: Install npm
+        uses: npm/action-setup@v2
         with:
           version: 7
           run_install: true
@@ -27,12 +27,12 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: pnpm
+          cache: npm
 
       - name: Build Docs
         env:
           NODE_OPTIONS: --max_old_space_size=8192
-        run: pnpm docs:build
+        run: npm docs:build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
