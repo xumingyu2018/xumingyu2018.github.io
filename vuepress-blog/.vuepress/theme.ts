@@ -38,7 +38,7 @@ export default hopeTheme({
       Gitee: 'https://gitee.com/NevermoreYu',
       GitHub: 'https://github.com/xumingyu2018',
     },
-    description: '一个后端开发者',
+    description: '菜鸟程序员',
     intro: '/about.html',
   },
 
