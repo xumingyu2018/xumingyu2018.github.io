@@ -42,7 +42,7 @@
 
 * id
 
-  `href = #xxx`
+  `href = #xxx` 跳转内部锚点
 
 ### target 属性
 
