@@ -50,9 +50,9 @@
 
   _blank （在新页面打开）
 
-  _top   （在最上层内联框架打开）
+  _top   （在最上层内联框架打开,一般和iframe一起使用）
 
-  _parent（在父级内联框架内打开）
+  _parent（在父级内联框架内打开,一般和iframe一起使用）
 
   _self  （默认：在当前页面打开）
 
@@ -67,6 +67,16 @@
 下载页面，不是所有浏览器都支持
 
 ## iframe 标签（不推荐使用）
+
+属性：
+
+* src
+* frameborder （是否显示边框）
+
+作用：
+
+* 页面嵌套
+* 和a元素结合
 
 ## table 标签
 
@@ -186,6 +196,13 @@ table {
 * select + option
 * textarea
 * label
+
+常用全局属性：
+
+* id
+* class
+* style
+* title （鼠标悬停时显示文字注释）
 
 > 一般不监听 input的 click 事件
 >

@@ -28,7 +28,6 @@ export default hopeTheme({
 
   repo: 'https://github.com/xumingyu2018/xumingyu2018.github.io',
 
-  // TODO 这个是 .vuepress 上级文件夹名 vuepress-blog，不确定，用于部署的，应该改成 docsDir: 'vuepress-blog',
   docsDir: 'vuepress-blog',
 
   pageInfo: ['Author', 'Original', 'Date', 'Category', 'Tag', 'ReadingTime'],
@@ -78,6 +77,8 @@ export default hopeTheme({
 
     mdEnhance: {
       // enableAll: true,
+      demo: true,
+      mark: true,
       presentation: {
         plugins: ['highlight', 'math', 'search', 'notes', 'zoom'],
       },

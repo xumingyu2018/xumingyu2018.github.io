@@ -74,3 +74,7 @@
 2. 获取 canvas 2d 上下文  
    `let ctx = canvas.getContent('2d')`
 3. 设置笔刷样式、绘制形状，开始绘制
+
+## 字符实体
+
+![常见字符实体](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/20230114021918.png)
