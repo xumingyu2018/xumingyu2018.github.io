@@ -21,7 +21,7 @@ export default navbar([
     ],
   },
   {
-    text: '开源项目',
+    text: '项目源码',
     activeMatch: '^/projects/$',
     icon: 'proposal',
     prefix: '/projects/',
@@ -37,7 +37,16 @@ export default navbar([
     ],
   },
   {
-    text: '加密文章',
-    link: '/encrypt/加密sql文件',
+    text: '项目资源',
+    activeMatch: '^/sql/$',
+    icon: 'proposal',
+    prefix: '/sql/',
+    children: [
+      { text: '摄影约拍sql', icon: 'edit', link: 'photoSql' },
+    ],
   },
+  // {
+  //   text: '加密文章',
+  //   link: '/encrypt/加密sql文件',
+  // }
 ])
