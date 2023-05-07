@@ -17,7 +17,7 @@ export default navbar([
       { text: '网页', icon: 'html', link: 'webpage/html/intro' },
       { text: 'JavaScript', icon: 'javascript', link: 'javascript/intro' },
       { text: 'TypeScript', icon: 'typescript', link: 'typescript/demo' },
-      { text: 'Vue', icon: 'vue', link: 'vue/vue2' },
+      { text: 'Vue', icon: 'vue', link: 'vue/vue2-basic' },
     ],
   },
   {
