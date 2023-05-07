@@ -9,12 +9,261 @@ category:
 
 MVVM思想
 
+![MVVM思想](https://secure2.wostatic.cn/static/tEnf5Qmm17toAnfkaTn2tZ/image.png?auth_key=1683448452-j2kMvLPSQSYmbTkZQxLa38-0-7a1a51cc98a93713674e646e922e4d2e)
+
 - M：`model`包括数据和一些基本操作
 - V：`view`视图，页面渲染结果
 - VM：`View-model`,模型与视图间的双向操作（无需开发人员干涉）
 - 视图和数据通过VM绑定起来，model里有变化会自动地通过Directives填写到视view中，视图表单中添加了内容也会自动地通过DOM Listeners保存到模型中。
 
-## vue声明式渲染
+## 基本语法及语法糖写法
+
+`v-once`：只渲染元素和组件**一次**。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
+
+`v-text`：类似于Mustache语法的插值{{text}}。
+
+`v-pre`：显示原始 Mustache 标签，不执行元素的编译。
+
+`v-cloak`：一般和`[v-cloak] { display: none }`一起使用，用于隐藏未编译的 Mustache 标签直到实例准备完毕。
+
+`v-html`：将数据解析为HTML代码。
+
+`v-for`：
+
+- `<div v-for="item in items"></div>`
+- `<div v-for="(item, index) in items"></div>`
+- `<div v-for="(val, key) in object"></div>`
+- `<div v-for="(val, name, index) in object"></div>`
+- 2.2.0+ 的版本里，当在组件上使用 `v-for` 时，`key` 现在是必须的
+
+`v-bind:src`→`:src`单向绑定（因为Mustache 语法不能作用在 HTML 属性上，从而使用v-bind）
+
+```HTML
+  <!-- 绑定一个 attribute -->
+  <img v-bind:src="imageSrc">
+  
+  <!-- 动态 attribute 名 (2.6.0+) -->
+  <button v-bind:[key]="value"></button>
+  
+  <!-- 缩写 -->
+  <img :src="imageSrc">
+  
+  <!-- 动态 attribute 名缩写 (2.6.0+) -->
+  <button :[key]="value"></button>
+  
+  <!-- 内联字符串拼接 -->
+  <img :src="'/path/to/images/' + fileName">
+  
+  <!-- class 绑定 -->
+  <div :class="{ red: isRed }"></div>
+  <div :class="[classA, classB]"></div>
+  <div :class="[classA, { classB: isB, classC: isC }]"></div>
+  
+  <!-- style 绑定 -->
+  <div :style="{ fontSize: size + 'px' }"></div>
+  <div :style="[styleObjectA, styleObjectB]"></div>
+  
+  <!-- 绑定一个全是 attribute 的对象 -->
+  <div v-bind="{ id: someProp, 'other-attr': otherProp }"></div>
+  
+  <!-- 通过 prop 修饰符绑定 DOM attribute -->
+  <div v-bind:text-content.prop="text"></div>
+  
+  <!-- prop 绑定。“prop”必须在 my-component 中声明。-->
+  <my-component :prop="someThing"></my-component>
+  
+  <!-- 通过 $props 将父组件的 props 一起传给子组件 -->
+  <child-component v-bind="$props"></child-component>
+  
+  <!-- XLink -->
+  <svg><a :xlink:special="foo"></a></svg>
+```
+
+`v-on:click` → `@click`
+
+事件监听参数问题
+
+- 事件调用的方法没有参数→普通按钮（括号可省略）
+- 事件定义时, 写方法时省略了小括号, 但是方法本身是需要一个参数的, 这个时候, Vue会默认将浏览器生产的event事件对象作为参数传入到方法。
+
+    `<button @click="btnClick(123)">按钮</button>` `btn2Click(event) {...}`：event=123
+
+    `<button @click="btnClick()">按钮</button>` `btn2Click(event) {...}`：event=undefined
+
+    `<button @click="btnClick">按钮</button>`  `btn2Click(event) {...}`：event=Event事件
+- 方法定义时, 我们需要event对象, 同时又需要其他参数，用`$event`获取浏览器参数的event对象。
+
+    `<button @click="btnClick(abc, $event)">按钮</button>`
+
+v-on修饰符
+
+- `stop`：禁止冒泡
+- `prevent`：提交事件不再重载页面
+- `enter`：监听某个按键的事件
+- `once`：只触发一次回调
+- `native`：监听组件根元素的原生事件
+
+`v-model`=`v-bind:value="key"`+`v-on:input="key=$event.target.value"`双向绑定（单向绑定+input事件监听）
+
+- v-model结合input
+
+```Vue
+  <div id="app">
+    <input type="text" v-model="message">
+    // <input type="text" :value="message" @input="valueChange">双向绑定原理
+  </div>
+  
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      valueChange(event) {
+        this.message = event.target.value;
+      }
+    }
+  })
+
+```
+
+- v-model结合radio
+
+```Vue
+  <div id="app">
+    // 注意使用了v-model可以使radio互斥,使用name属性也可以互斥
+    <label for="male">
+      <input type="radio" id="male" value="男" v-model="sex">男
+    </label>
+    <label for="female">
+      <input type="radio" id="female" value="女" v-model="sex">女
+    </label>
+    <h2>您选择的性别是: {{sex}}</h2>
+  </div>
+  
+  const app = new Vue({
+    el: '#app',
+    data: {
+      sex: '男'
+    }
+  })
+
+```
+
+- v-model结合checkbox
+
+```Vue
+  // <!--1.checkbox单选框-->
+  <label for="agree">
+    <input type="checkbox" id="agree" v-model="isAgree">同意协议
+  </label>
+  <h2>您选择的是: {{isAgree}}</h2>
+  <button :disabled="!isAgree">下一步</button>
+  
+  // <!--2.checkbox多选框-->
+  <input type="checkbox" value="篮球" v-model="hobbies">篮球
+  <input type="checkbox" value="足球" v-model="hobbies">足球
+  <input type="checkbox" value="乒乓球" v-model="hobbies">乒乓球
+  <input type="checkbox" value="羽毛球" v-model="hobbies">羽毛球
+  <h2>您的爱好是: {{hobbies}}</h2>
+  
+  // 值绑定v-bind，不将value写死
+  <label v-for="item in originHobbies" :for="item">
+    <input type="checkbox" :value="item" :id="item" v-model="hobbies">{{item}}
+  </label>
+    
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      isAgree: false, // 单选框
+      hobbies: [], // 多选框,
+      originHobbies: ['篮球', '足球', '乒乓球', '羽毛球', '台球', '高尔夫球']
+    }
+  })
+```
+
+- v-model结合select
+
+```Vue
+  <div id="app">
+    // <!--1.选择一个-->
+    <select name="abc" v-model="fruit">
+      <option value="苹果">苹果</option>
+      <option value="香蕉">香蕉</option>
+      <option value="榴莲">榴莲</option>
+      <option value="葡萄">葡萄</option>
+    </select>
+    <h2>您选择的水果是: {{fruit}}</h2>
+  
+    // <!--2.选择多个-->
+    <select name="abc" v-model="fruits" multiple>
+      <option value="苹果">苹果</option>
+      <option value="香蕉">香蕉</option>
+      <option value="榴莲">榴莲</option>
+      <option value="葡萄">葡萄</option>
+    </select>
+    <h2>您选择的水果是: {{fruits}}</h2>
+  </div>
+  
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      fruit: '香蕉',
+      fruits: []
+    }
+  })
+
+```
+
+v-model修饰符
+
+- `lazy`：懒加载，输入框点击回车后加载
+
+    `<input type="text" v-model.lazy="message">`
+- `number`：输入框必须是数字类型
+
+    `<input type="number" v-model.number="age">`
+- `trim`：消除两边的空格
+
+    `<input type="text" v-model.trim="name">`
+
+## computed和methods区别
+
+- 计算属性一般默认只有 getter， 只读属性，不过在需要时你也可以提供一个 setter。
+- 计算属性在多次使用时，只会调用一次，它是有缓存的，性能更好。
+
+## v-if和v-show区别
+
+- v-if: 当条件为false时, 包含v-if指令的元素, 根本就不会存在dom中
+- v-show: 当条件为false时, v-show只是给我们的元素添加一个行内样式: display: none
+
+## v-for使用过程添加key可以提高性能（类似Diff算法）
+
+`<li v-for="item in letters" :key="item">{{item}}</li>`
+
+## 数组的几个响应式方法
+
+- `push()`：在数组最后增加元素
+- `pop()`：删除数组中的最后一个元素
+- `shift()`：删除数组中的第一个元素
+- `unshift()`：在数组最前面添加元素
+- `splice()`：删除元素/插入元素/替换元素
+  - 删除元素: 第二个参数传入你要删除几个元素(如果没有传,就删除后面所有的元素)
+  - 替换元素: 第二个参数, 表示我们要替换几个元素, 后面是用于替换前面的元素
+  - 插入元素: 第二个参数, 传入0, 并且后面跟上要插入的元素
+- `sort()`：给数组中的元素排序
+- `reverse()`：翻转数组中的元素
+- **注意**：通过索引值修改数组中的元素不是响应式的如：`this.letters[0] = 'aaa'`，但可以使用`this.letters.splice(0, 1, 'aaa')`和**`Vue.set(this.letters, 0, 'aaa')`****实现响应式**。
+
+## Watch
+
+数据变化时，使用`watch()`
+
+## 案例补充
+
+### vue声明式渲染
 
 ```html
 <!DOCTYPE html>
@@ -76,7 +325,7 @@ MVVM思想
 </html>
 ```
 
-## v-text、v-html.html
+### v-text、v-html.html
 
 注意：插值表达式
 
@@ -122,7 +371,7 @@ MVVM思想
 </html>
 ```
 
-## 单向绑定v-bind
+### 单向绑定v-bind
 
 ```html
 <!DOCTYPE html>
@@ -160,7 +409,7 @@ MVVM思想
 </html>
 ```
 
-## 双向绑定v-model
+### 双向绑定v-model
 
 ```html
 <!DOCTYPE html>
@@ -195,7 +444,7 @@ MVVM思想
 </html>
 ```
 
-## 事件绑定v-on
+### 事件绑定v-on
 
 ```html
 <!DOCTYPE html>
@@ -252,7 +501,7 @@ MVVM思想
 </html>
 ```
 
-## 循环遍历v-for
+### 循环遍历v-for
 
 ```html
 <!DOCTYPE html>
@@ -305,7 +554,7 @@ MVVM思想
 </html>
 ```
 
-## v-if和v-show
+### v-if和v-show
 
 ```html
 <!DOCTYPE html>
@@ -343,7 +592,7 @@ MVVM思想
 </html>
 ```
 
-## v-else和v-else-if
+### v-else和v-else-if
 
 ```html
 <!DOCTYPE html>
@@ -389,7 +638,7 @@ MVVM思想
 </html>
 ```
 
-## 计算属性computed和监听器watch
+### 计算属性computed和监听器watch
 
 ```html
 <!DOCTYPE html>
@@ -445,7 +694,7 @@ MVVM思想
 </html>
 ```
 
-## 过滤器
+### 过滤器
 
 ```html
 <!DOCTYPE html>
@@ -502,7 +751,7 @@ MVVM思想
 </html>
 ```
 
-## 组件化（相当于封装函数）
+### 组件化（相当于封装函数）
 
 ```html
 <!DOCTYPE html>
@@ -562,7 +811,7 @@ MVVM思想
 </html>
 ```
 
-## 生命周期钩子函数
+### 生命周期钩子函数
 
 ```html
 <!DOCTYPE html>
