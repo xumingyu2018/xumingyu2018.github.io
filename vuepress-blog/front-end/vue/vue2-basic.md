@@ -8,7 +8,8 @@ category:
 
 MVVM思想
 
-![MVVM思想](https://secure2.wostatic.cn/static/tEnf5Qmm17toAnfkaTn2tZ/image.png?auth_key=1683448452-j2kMvLPSQSYmbTkZQxLa38-0-7a1a51cc98a93713674e646e922e4d2e)
+
+![MVVM思想](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_H6H8YPKlU2.png)
 
 - M：`model`包括数据和一些基本操作
 - V：`view`视图，页面渲染结果
@@ -37,7 +38,7 @@ MVVM思想
 
 `v-bind:src`→`:src`单向绑定（因为Mustache 语法不能作用在 HTML 属性上，从而使用v-bind）
 
-```HTML
+```html
   <!-- 绑定一个 attribute -->
   <img v-bind:src="imageSrc">
   
@@ -106,7 +107,7 @@ v-on修饰符
 
 - v-model结合input
 
-```Vue
+```vue
   <div id="app">
     <input type="text" v-model="message">
     // <input type="text" :value="message" @input="valueChange">双向绑定原理
@@ -128,7 +129,7 @@ v-on修饰符
 
 - v-model结合radio
 
-```Vue
+```vue
   <div id="app">
     // 注意使用了v-model可以使radio互斥,使用name属性也可以互斥
     <label for="male">
@@ -151,7 +152,7 @@ v-on修饰符
 
 - v-model结合checkbox
 
-```Vue
+```vue
   // <!--1.checkbox单选框-->
   <label for="agree">
     <input type="checkbox" id="agree" v-model="isAgree">同意协议
@@ -184,7 +185,7 @@ v-on修饰符
 
 - v-model结合select
 
-```Vue
+```vue
   <div id="app">
     // <!--1.选择一个-->
     <select name="abc" v-model="fruit">
