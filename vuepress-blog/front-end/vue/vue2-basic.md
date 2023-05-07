@@ -1,9 +1,8 @@
 ---
-title: Vue2.0基础
+title: Vue2基础
 category:
   - Vue2
 ---
-
 
 ## 概念
 
