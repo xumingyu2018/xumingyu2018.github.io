@@ -4,5 +4,6 @@ export const vue = arraySidebar([
   'vue2-basic',
   'componentized',
   'slot',
-  'vue-cli'
+  'vue-cli',
+  'vue-router',
 ])
