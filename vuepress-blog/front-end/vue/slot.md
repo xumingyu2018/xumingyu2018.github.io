@@ -33,7 +33,7 @@ category:
 
 `v-slot:`→`#`（缩写）
 
-注意 ：**`v-slot`只能添加在****`<template>`**** 上** (只有[一种例外情况](https://v2.cn.vuejs.org/v2/guide/components-slots.html#独占默认插槽的缩写语法 "一种例外情况"))，这一点和已经废弃的 [slot](https://v2.cn.vuejs.org/v2/guide/components-slots.html#废弃了的语法 "slot")[ attribute](https://v2.cn.vuejs.org/v2/guide/components-slots.html#废弃了的语法 " attribute") 不同（`slot`可以用在`<template>`上也可以用在普通元素上）。
+注意 ：**`v-slot`只能添加在`<template>` 上** (只有[一种例外情况](https://v2.cn.vuejs.org/v2/guide/components-slots.html#独占默认插槽的缩写语法 "一种例外情况"))，这一点和已经废弃的 [slot](https://v2.cn.vuejs.org/v2/guide/components-slots.html#废弃了的语法 "slot")[ attribute](https://v2.cn.vuejs.org/v2/guide/components-slots.html#废弃了的语法 " attribute") 不同（`slot`可以用在`<template>`上也可以用在普通元素上）。
 
 ```html
   <div id = "app">
