@@ -6,5 +6,7 @@ export const vue = arraySidebar([
   'slot',
   'vue-cli',
   'vue-router',
-  'vuex'
+  'vuex',
+  'TabBar-demo'
+
 ])
