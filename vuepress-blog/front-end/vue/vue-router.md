@@ -1,5 +1,5 @@
 ---
-title: 路由
+title: Vue-Router路由
 category:
   - Vue2
 ---

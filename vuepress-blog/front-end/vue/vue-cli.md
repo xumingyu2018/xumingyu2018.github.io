@@ -1,5 +1,5 @@
 ---
-title: vue脚手架
+title: Vue脚手架
 category:
   - Vue2
 ---

@@ -8,7 +8,6 @@ category:
 
 MVVM思想
 
-
 ![MVVM思想](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_H6H8YPKlU2.png)
 
 - M：`model`包括数据和一些基本操作
