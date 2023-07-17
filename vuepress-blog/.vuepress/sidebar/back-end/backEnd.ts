@@ -7,6 +7,7 @@ export const backEnd = arraySidebar([
     children: [
       {
         text: '基础',
+        collapsable: true,
         children: ['Java-basic'],
       },
       {
