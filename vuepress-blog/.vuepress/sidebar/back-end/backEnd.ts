@@ -4,7 +4,6 @@ export const backEnd = arraySidebar([
   {
     text: 'Java',
     icon: 'java',
-    collapsable: true,
     children: [
       {
         text: '基础',
