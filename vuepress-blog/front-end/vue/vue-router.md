@@ -1,5 +1,5 @@
 ---
-title: Vue-Router路由
+title: Vue-Router
 category:
   - Vue2
 ---
@@ -95,7 +95,7 @@ new Vue({
 
     `<router-link>`：vue-router中内置的组件，会被渲染成`<a>`标签
 
-    ```vue&#x20;jsx
+    ```vue
     <template>
       <div>
         <router-link to="/home">主页</router-link>
@@ -110,7 +110,7 @@ new Vue({
 
 - 默认路由
 
-    ```vue&#x20;jsx
+    ```vue
     const routes = [
       {
         // 重定向默认路径
@@ -123,7 +123,7 @@ new Vue({
 
 - 路由模式
 
-    ```vue&#x20;jsx
+    ```vue
     const router = new VueRouter({
       routes
       // 配置history模式，默认是hash模式
@@ -137,7 +137,7 @@ new Vue({
     -   `replace`：后退键返回不能返回到上一个页面中。
     -   `active-class`：当`<router-link>`对应的路由匹配成功时, 会自动给当前元素设置一个`router-link-active`的class。
 
-        ```vue&#x20;jsx
+        ```vue
         const router = new VueRouter({
           ...
           linkActiveClass: 'active'
@@ -155,7 +155,7 @@ new Vue({
 - params类型：如 `/router/123`
 - query 类型，如 `/router?id=123`
 
-    ```vue&#x20;jsx
+    ```vue
     // <router-link>传递参数
     <router-link 
       :to="{ 
@@ -177,7 +177,7 @@ new Vue({
 
 `$router`是 VueRouter的实例对象，想要导航到不同URL，则使用\$router.push方法（可以通过代码跳转路由）
 
-```vue&#x20;jsx
+```vue
 ButtonClick() {
   this.$router.push('/home')
   this.$router.replace('/home')
@@ -196,7 +196,7 @@ ButtonClick() {
 
 - `children：[ ... ]`
 
-```vue&#x20;jsx
+```vue
 // index.js
 {
   path: '/home',
@@ -278,7 +278,7 @@ router.afterEach((to, from) => {
 - include：只有匹配的组件会被缓存。
 - exclude：任何匹配的组件都不会被缓存。
 
-```vue&#x20;jsx
+```vue
 // 排除的属性为组件中定义的name, 所有的路径匹配到的视图组件都会被缓存
 <keep-alive exclude="Profile,User">
   <router-view></router-view>

@@ -19,21 +19,24 @@ MVVM思想
 
 `v-once`：只渲染元素和组件**一次**。随后的重新渲染，元素/组件及其所有的子节点将被视为静态内容并跳过。这可以用于优化更新性能。
 
-`v-text`：类似于Mustache语法的插值{{text}}。
+`v-text`：类似于Mustache语法的插值`{{text}}`。
 
 `v-pre`：显示原始 Mustache 标签，不执行元素的编译。
 
-`v-cloak`：一般和`[v-cloak] { display: none }`一起使用，用于隐藏未编译的 Mustache 标签直到实例准备完毕。
+`v-cloak`：一般和`<style>[v-cloak] { display: none }</style>`一起使用，用于隐藏未编译的 Mustache 标签直到实例准备完毕。
 
 `v-html`：将数据解析为HTML代码。
 
+`v-if/v-else-if/v-else`：条件渲染（切换多个元素时可以加在template元素上）
+
 `v-for`：
 
-- `<div v-for="item in items"></div>`
-- `<div v-for="(item, index) in items"></div>`
-- `<div v-for="(val, key) in object"></div>`
-- `<div v-for="(val, name, index) in object"></div>`
+- `<div v-for="item in items"></div>`（普通变量）
+- `<div v-for="(item, index) in items"></div>`（数组）
+- `<div v-for="(val, key) in object"></div>`（对象）
+- `<div v-for="(val, key, index) in object"></div>` 遍历对象
 - 2.2.0+ 的版本里，当在组件上使用 `v-for` 时，`key` 现在是必须的
+
 
 `v-bind:src`→`:src`单向绑定（因为Mustache 语法不能作用在 HTML 属性上，从而使用v-bind）
 
@@ -101,6 +104,11 @@ v-on修饰符
 - `enter`：监听某个按键的事件
 - `once`：只触发一次回调
 - `native`：监听组件根元素的原生事件
+- `capture` ：当元素发生冒泡时，先触发带有该修饰符的元素。若有多个该修饰符，则由外而内触发
+- `left`：只当点击鼠标左键时触发
+- `right`：只当点击鼠标右键时触发
+- `middle`：只当点击鼠标中键时触发
+- `{keyAlias}`：仅当事件是从特定键触发时才触发回调
 
 `v-model`=`v-bind:value="key"`+`v-on:input="key=$event.target.value"`双向绑定（单向绑定+input事件监听）
 
@@ -228,21 +236,30 @@ v-model修饰符
 
     `<input type="text" v-model.trim="name">`
 
-## computed和methods区别
-
-- 计算属性一般默认只有 getter， 只读属性，不过在需要时你也可以提供一个 setter。
-- 计算属性在多次使用时，只会调用一次，它是有缓存的，性能更好。
-
 ## v-if和v-show区别
 
 - v-if: 当条件为false时, 包含v-if指令的元素, 根本就不会存在dom中
-- v-show: 当条件为false时, v-show只是给我们的元素添加一个行内样式: display: none
+- v-show（显示和隐藏之间频繁切换时使用）:
+    - 当条件为false时, v-show只是给我们的元素添加一个行内样式: display: none
+    - 不支持加在template上
+    - 不可以和v-else一起使用
 
-## v-for使用过程添加key可以提高性能（类似Diff算法）
+## v-for中的key
 
-`<li v-for="item in letters" :key="item">{{item}}</li>`
+**v-for使用过程添加key属性可以提高性能（类似Diff算法）**
+
+> 1. key属性主要用在Vue的虚拟DOM算法，在新旧nodes对比时辨识VNodes；
+> 2. 如果不使用key，Vue会使用一种最大限度减少动态元素并且尽可能的尝试就地修改/复用相同类型元素的算法；
+> 3. 而使用key时，它会基于key的变化重新排列元素顺序，并且会移除/销毁key不存在的元素；
+
+使用：`<li v-for="item in letters" :key="item">{{item}}</li>`
+
+- 当有`key`时，更新`li`会调用 `patchKeyedChildren`方法
+- 当没有`key`时，更新`li`会调用 `patchUnkeyedChildren`方法
 
 ## 数组的几个响应式方法
+
+会直接修改原来的数组
 
 - `push()`：在数组最后增加元素
 - `pop()`：删除数组中的最后一个元素
@@ -254,7 +271,16 @@ v-model修饰符
   - 插入元素: 第二个参数, 传入0, 并且后面跟上要插入的元素
 - `sort()`：给数组中的元素排序
 - `reverse()`：翻转数组中的元素
-- **注意**：通过索引值修改数组中的元素不是响应式的如：`this.letters[0] = 'aaa'`，但可以使用`this.letters.splice(0, 1, 'aaa')`和**`Vue.set(this.letters, 0, 'aaa')`****实现响应式**。
+
+**注意**：通过索引值修改数组中的元素不是响应式的如：`this.letters[0] = 'aaa'`，但可以使用`this.letters.splice(0, 1, 'aaa')`和**`Vue.set(this.letters, 0, 'aaa')`****实现响应式**。
+
+## computed和methods区别
+
+- 计算属性一般默认只有 getter， 只读属性，不过在需要时你也可以提供一个 setter。
+- 计算属性在多次使用时，只会调用一次，它是有缓存的，性能更好。
+- 在使用的时候不需要像methods一样加（）
+
+![computed和methods区别](https://secure2.wostatic.cn/static/7hFT9sHrUXViagVDVieVZA/image.png?auth_key=1683538246-5Rw6QcvaXPf7QRUMtpMo4T-0-4c67ee039029b8c1175cf82caa677bd8)
 
 ## Watch
 

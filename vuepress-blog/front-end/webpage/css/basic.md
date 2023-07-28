@@ -1,4 +1,4 @@
---- 
+---
   title: 基础知识
 ---
 
@@ -342,43 +342,43 @@ input和label的关联
 
 `transform形变`
 
-* 2D形变：translate（平移）、scale（缩放）、rotate（旋转）、skew（倾斜）、transform-origin（形变坐标原点）
-* 3D形变：translate3d、scale3d、rotate3d、skew3d
+* 2D形变：`translate`（平移）、`scale`（缩放）、`rotate`（旋转）、`skew`（倾斜）、`transform-origin`（形变坐标原点）
+* 3D形变：`translate3d`、`scale3d`、`rotate3d`、`skew3d`
 
 `transition过渡`
 
-* transition-property：过渡属性
-* transition-duration：过渡时间
-* transition-timing-function：过渡函数
-  - linear：匀速
-  - ease：缓冲
-  - ease-in：加速
-  - ease-out：减速
-  - ease-in-out：先加速后减速
-* transition-delay：过渡延迟时间
+* `transition-property`：过渡属性
+* `transition-duration`：过渡时间
+* `transition-timing-function`：过渡函数
+  - `linear`：匀速
+  - `ease`：缓冲
+  - `ease-in`：加速
+  - `ease-out`：减速
+  - `ease-in-out`：先加速后减速
+* `transition-delay`：过渡延迟时间
 
 `animation动画`
 
-* animation-name：动画名称（与@Keyframes的标识符要对应）
-* animation-duration：动画时间（常用）
-* animation-timing-function：动画函数（常用）
-* animation-delay：动画延迟
-* animation-iteration-count：动画次数
-* animation-direction：动画方向
-  - normal：正常方向
-  - reverse：反向
-  - alternate：交替
-  - alternate-reverse：交替反向
-* animation-fill-mode：元素停留在动画的哪个位置
-  - none：动画结束后，元素恢复到初始状态
-  - forwards：动画结束后，元素保持动画最后一帧的状态（常用）
-  - backwards：动画结束后，元素保持动画第一帧的状态
-* animation-play-state：动画状态（JavaScript中使用）
-  - paused：暂停（音乐播放器常用）
-  - running：运行
-* animation：简写属性
-  - animation: name duration timing-function delay iteration-count direction fill-mode play-state;
-* @keyframes：定义每一帧的属性
+* `animation-name`：动画名称（与@Keyframes的标识符要对应）
+* `animation-duration`：动画时间（常用）
+* `animation-timing-function`：动画函数（常用）
+* `animation-delay`：动画延迟
+* `animation-iteration-count`：动画次数
+* `animation-direction`：动画方向
+  - `normal`：正常方向
+  - `reverse`：反向
+  - `alternate`：交替
+  - `alternate-reverse`：交替反向
+* `animation-fill-mode`：元素停留在动画的哪个位置
+  - `none`：动画结束后，元素恢复到初始状态
+  - `forwards`：动画结束后，元素保持动画最后一帧的状态（常用）
+  - `backwards`：动画结束后，元素保持动画第一帧的状态
+* `animation-play-state`：动画状态（JavaScript中使用）
+  - `paused`：暂停（音乐播放器常用）
+  - `running`：运行
+* `animation`：简写属性
+  - `animation: name duration timing-function delay iteration-count direction fill-mode play-state`;
+* `@keyframes`：定义每一帧的属性
 
 ```css:no-line-numbers
   @keyframes name {

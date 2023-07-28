@@ -16,9 +16,9 @@ JS 是单线程的、非阻塞的。通过事件循环解决了单线程会阻�
 
 浏览器、Node 环境下的微任务与宏任务分类：
 
-微任务（microTask）：promise then、async/await、MutationObserver（H5 新特性）、queueMicrotask、process.nextTick
+微任务（microTask）：`promise then`、`async/await`、`MutationObserver`（H5 新特性）、`queueMicrotask`、`process.nextTick`
 
-宏任务（macroTask）：main script(主线程代码)、setTimeout、setInterval、setImmediate、requestAnimationFrame、I/O 事件、DOM 监听事件、AJAX 请求、UI 页面渲染
+宏任务（macroTask）：`main script`(主线程代码)、`setTimeout`、`setInterval`、`setImmediate`、`requestAnimationFrame`、`I/O`事件、`DOM` 监听事件、`AJAX` 请求、`UI` 页面渲染
 
 ### 执行顺序
 
@@ -27,7 +27,7 @@ JS 是单线程的、非阻塞的。通过事件循环解决了单线程会阻�
 3. DOM 渲染（若有则渲染，无则跳过）（微任务会阻塞页面的渲染，宏任务不会）
 4. 执行宏任务：在此之前，先查看微任务队列是否为空，不为空则继续执行微任务（**先微后宏**）即：若微任务在执行过程中产生了新的微任务，则继续执行微任务，微任务执行完毕后，再回到宏任务中进行下一轮微任务队列。
 
-![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/20220705015157.png)
+![执行顺序](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/20220705015157.png)
 
 ### 例题一
 

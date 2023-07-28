@@ -1,5 +1,5 @@
 ---
-title: Vuex状态管理库
+title: Vuex
 category:
   - Vue2
 ---

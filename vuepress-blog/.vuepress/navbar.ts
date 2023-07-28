@@ -18,6 +18,7 @@ export default navbar([
       { text: 'JavaScript', icon: 'javascript', link: 'javascript/intro' },
       { text: 'TypeScript', icon: 'typescript', link: 'typescript/demo' },
       { text: 'Vue', icon: 'vue', link: 'vue/vue2-basic' },
+      { text: '构建工具', icon: 'build', link: 'builder/webpack'}
     ],
   },
   {
