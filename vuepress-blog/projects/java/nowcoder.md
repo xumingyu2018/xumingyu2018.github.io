@@ -1,13 +1,15 @@
 ---
+title: 仿牛客网项目
 icon: edit
 date: 2022-01-09
 category:
   - Java
 tag:
+  - 后端项目
   - Java项目
 ---
 
-# 仿牛客网项目学习
+## [项目源码](https://github.com/xumingyu2018/DemoNowcoder)
 
 ## 主页讨论区分页查询功能
 

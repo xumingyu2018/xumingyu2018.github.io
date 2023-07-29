@@ -134,7 +134,7 @@ category:
 
 `dev.config.js`：
 
-```JavaScript
+```javascript
 // 配置文件分离，首先安装npm install webpack-merge --save-dev，调用webpackMerge(xxConfig, yyConfig)方法，将两个配置文件合并
 const webpackMerge = require('webpack-merge')
 const baseConfig = require('./base.config')
@@ -149,7 +149,7 @@ module.exports = webpackMerge(baseConfig, {
 
 `prod.config.js`：
 
-```JavaScript
+```javascript
 const UglifyjsWebpackPlugin = require('uglifyjs-webpack-plugin')
 const webpackMerge = require('webpack-merge')
 const baseConfig = require('./base.config')
@@ -167,7 +167,7 @@ module.exports = webpackMerge(baseConfig, {
 - `"build": "webpack --config ./build/prod.config.js"`, 指定 config 生产环境配置文件，不然默认是 webpack.config.js 会找不到
 - `"dev": "webpack-dev-server --open --config ./build/dev.config.js"`， 指定 config 开发环境配置文件，`--open` 自动打开浏览器
 
-```JSON
+```json
 {
   "name": "meetwebpack",
   "version": "1.0.0",
@@ -208,7 +208,7 @@ module.exports = webpackMerge(baseConfig, {
 
 `webpack.config.js`
 
-```JavaScript
+```javascript
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')

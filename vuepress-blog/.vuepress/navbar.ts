@@ -17,6 +17,7 @@ export default navbar([
       { text: '网页', icon: 'html', link: 'webpage/html/intro' },
       { text: 'JavaScript', icon: 'javascript', link: 'javascript/intro' },
       { text: 'TypeScript', icon: 'typescript', link: 'typescript/demo' },
+      { text: 'Node', icon: 'javascript', link: 'node/node-basic' },
       { text: 'Vue', icon: 'vue', link: 'vue/vue2-basic' },
       { text: '构建工具', icon: 'build', link: 'builder/webpack'}
     ],
@@ -31,10 +32,23 @@ export default navbar([
         text: 'Java项目',
         icon: 'edit',
         children: [
-          { text: '仿牛客网项目', icon: 'edit', link: 'nowcoder-demo' },
+          { text: '仿牛客网项目', icon: 'java', link: 'java/nowcoder' },
           // { text: '谷粒商城项目', icon: 'edit', link: 'gulimall-demo' },
         ],
       },
+      {
+        text: 'Vue项目',
+        icon: 'edit',
+        children: [
+          { text: '移动端旅游项目', icon: 'vue', link: 'vue/trip-site' },
+        ],
+      },{
+        text: 'Node项目',
+        icon: 'edit',
+        children: [
+          { text: 'coderhub项目', icon: 'javascript', link: 'node/coderhub' },
+        ],
+      }
     ],
   },
   {

@@ -8,6 +8,4 @@ export const typescript = arraySidebar([
   'class',
   'interface',
   'generics',
- 
-
 ])

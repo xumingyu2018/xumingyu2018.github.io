@@ -1,5 +1,2 @@
-import { arraySidebar } from 'vuepress-theme-hope'
-
-export const projects = arraySidebar([
-  'nowcoder-demo',
-])
+// 暂时不要侧边栏
+// export * from './nowcoder'
