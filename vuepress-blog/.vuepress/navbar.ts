@@ -41,6 +41,7 @@ export default navbar([
         icon: 'edit',
         children: [
           { text: '移动端旅游项目', icon: 'vue', link: 'vue/trip-site' },
+          { text: '后台管理项目', icon: 'vue', link: 'vue/cms' },
         ],
       },{
         text: 'Node项目',
