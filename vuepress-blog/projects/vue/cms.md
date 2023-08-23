@@ -26,7 +26,7 @@ css 样式重置（略）
 
 配置 axios 网络请求 ts 写法
 
-```TypeScript
+```typescript
 // service/request/index.ts
 import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
@@ -122,7 +122,7 @@ export default HYRequest
 
 ```
 
-```TypeScript
+```typescript
 // service/index.ts
 import HYRequest from './request'
 import { BASE_URL1, TIME_OUT1 } from './config'
@@ -155,7 +155,7 @@ export default hyRequest
 
 ```
 
-```TypeScript
+```typescript
 // service/config/index.ts
 export const BASE_URL1 = 'http://152.136.185.210:5000'
 export const TIME_OUT1 = 10000
@@ -171,7 +171,7 @@ export const TIME_OUT1 = 10000
 
 **Vite**
 
-```TypeScript
+```typescript
 // vite.config.ts
 import { defineConfig } from 'vite'
 import AutoImport from 'unplugin-auto-import/vite'
@@ -194,7 +194,7 @@ export default defineConfig({
 
 **Webpack**
 
-```TypeScript
+```typescript
 // webpack.config.js
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
@@ -221,7 +221,7 @@ module.exports = {
 
 注意这里不能用%号
 
-```Vue
+```vue
 <style scoped>
 .app {
   /* 不能使用%，因为相对于父元素；vh相对于视口 */
@@ -236,7 +236,7 @@ module.exports = {
 
 #### Login 父组件设置背景及位置
 
-```Vue
+```vue
 <!-- Login.vue -->
 <template>
   <div class="login">
@@ -269,7 +269,7 @@ import loginPanel from './cpns/login-panel.vue'
 
 ElMessage 组件等样式引入安装：
 
-```TypeScript
+```typescript
 // 图标的全局注册
 // global/register-icons.ts
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -287,7 +287,7 @@ export default registerIcons
 
 main.ts 中进行注册
 
-```TypeScript
+```typescript
 import { createApp } from 'vue'
 import App from './App.vue'
 import 'normalize.css'
@@ -316,7 +316,7 @@ tabs 中插入图标需要用到`label`插槽`<template #label>...</template>`
 
 tabs 中通过 v-model 绑定选项卡的 name
 
-```Vue
+```vue
 <!-- login-panel.vue -->
 <template>
   <div class="login-panel">
@@ -425,7 +425,7 @@ const handleLoginBtnClick = () => {
 
 `defineExpose`将子组件的用户名/密码暴露给父组件，从而实现登录逻辑（涉及 pinia、axios）
 
-```TypeScript
+```typescript
 <!-- pane-account.vue -->
 <template>
   <div class="account">
@@ -496,7 +496,7 @@ defineExpose({
 
 #### 封装 IAccount 对象类型
 
-```TypeScript
+```typescript
 // types/login.ts
 export interface IAccount {
     username: string,
@@ -510,7 +510,7 @@ export * from './login'
 
 #### 封装 axios 登录请求
 
-```TypeScript
+```typescript
 import hyRequest from ".."
 import type { IAccount } from "@/types"
 
@@ -525,7 +525,7 @@ export function accountLoginRequest(account: IAccount) {
 
 #### 使用 pinia 存储请求数据(在`pane-account`组件中调用)
 
-```TypeScript
+```typescript
 // store/index.ts
 // 初始化pinia
 import { createPinia } from "pinia";
@@ -535,7 +535,7 @@ const pinia = createPinia()
 export default pinia
 ```
 
-```TypeScript
+```typescript
 // store/login/login.ts
 import { defineStore } from "pinia";
 import { accountLoginRequest } from '@/service/login/login'
@@ -570,7 +570,7 @@ export default useLoginStore
 
 #### 封装本地缓存 token 工具（localStorage、sessionStorage）
 
-```TypeScript
+```typescript
 // utils/cache.ts
 enum CacheType {
   local = 'local',
@@ -615,7 +615,7 @@ export { localCache, sessionCache }
 
 `router.beforeEach(to, from)`
 
-```TypeScript
+```typescript
 // router/index.ts
 import { localCache } from '@/utils/cache'
 import { createRouter, createWebHashHistory } from 'vue-router'
@@ -639,7 +639,7 @@ export default router
 
 父组件将`isRemPwd`作为参数传入子组件登录逻辑，判断`isRemPwd`的布尔值，来选择是否存入或删除`LocalStore`本地缓存，再获取本地缓存将值赋值给初始化的`username`和`password`进行回显。将勾选框是否选中也作为`LocalStore`缓存存入。
 
-```TypeScript
+```typescript
 // 父组件login-panel
 // ...
 const isRemPwd = ref<boolean>(localCache.getCache('isRemPwd') ?? false)
@@ -660,7 +660,7 @@ const handleLoginBtnClick = () => {
 </script>
 ```
 
-```TypeScript
+```typescript
 
 // 定义account数据
 const account = reactive<IAccount>({
@@ -699,7 +699,7 @@ function loginAction(isRemPwd: boolean) {
 
 #### 封装 axios 接口请求
 
-```TypeScript
+```typescript
 // 获取用户详细信息
 export function getUserInfoById(id: number) {
     return hyRequest.get({
@@ -720,7 +720,7 @@ export function getUserMenusByRoleId(id: number) {
 
 #### 使用 pinia 存储请求数据
 
-```TypeScript
+```typescript
 interface ILoginState {
     token: string,
     userInfo: any,
@@ -769,7 +769,7 @@ export default useLoginStore
 
 使用`el-container`包裹侧边栏容器`el-aside`以及包裹`el-header`顶栏容器和`el-main`主要区域容器。
 
-```Vue
+```vue
 <template>
   <div class="main">
     <el-container class="main-content">
@@ -825,7 +825,7 @@ export default useLoginStore
 
 使用`elementUI`中菜单`menu`组件由`el-menu`、`el-sub-menu`（需要使用插槽）、`el-menu-item`组成。
 
-```Vue
+```vue
 <template>
   <div class="main-menu">
     <div class="logo">
@@ -922,7 +922,7 @@ export default useLoginStore
 
 首先将用户详细信息，权限信息缓存处理（刷新时依然存在），然后使用`<template v-for="">`、`mustache`表达式动态遍历即可。
 
-```Vue
+```vue
 // 登录时store缓存用户权限信息
 state: (): ILoginState => ({
     // ...
@@ -943,7 +943,7 @@ actions: {
 
 ```
 
-```Vue
+```vue
 <template>
   <div class="main-menu">
     <div class="logo">
@@ -994,7 +994,7 @@ function handleItemClick(subItem: any) {
 
 服务器返回的是字符串`el-icon-monitor`，需要使用动态组件`componet`来处理图标字符串并且使用`split`函数分隔字符串。
 
-```Vue
+```vue
 <!-- 子菜单 -->
 <el-sub-menu :index="item.id + ''">
   <template #title>
@@ -1011,7 +1011,7 @@ function handleItemClick(subItem: any) {
 
 当用户没有权限时，可以手动在地址栏输入 url 去访问没有权限的页面。后面使用动态路由。
 
-```Vue
+```vue
 {
   path: '/main',
   component: () => import('../views/main/Main.vue'),
@@ -1043,7 +1043,7 @@ function handleItemClick(subItem: any) {
 
 ### 搭建整体布局
 
-```Vue
+```vue
 <template>
   <div class="main-header">
     <div class="menu-icon" @click="handleMenuIconClick">
@@ -1087,7 +1087,7 @@ function handleItemClick(subItem: any) {
 
 由`main-header`子组件通过`defineEmits`将折叠状态`isFold`传入给父组件`main`中的`el-aside`从而控制其宽度。
 
-```Vue
+```vue
 // main-header.vue
 <template>
   <div class="main-header">
@@ -1123,7 +1123,7 @@ function handleMenuIconClick() {
 
 父组件在定义`main-header`上通过`@fold-change`接收子组件传来的`emit('foldChange', isFold.value)`。
 
-```Vue
+```vue
 // main.vue
 <template>
   <div class="main">
@@ -1160,7 +1160,7 @@ function handleFoldChange(isFoldValue: boolean) {
 
 父组件通过子组件的`defineProps`将`:is-fold="isFold"`折叠状态传入到`el-menu`的属性`:collapse`上，从而控制`menu`菜单的折叠。
 
-```Vue
+```vue
 // main-menu.vue
 <template>
   <div class="main-menu">
@@ -1192,7 +1192,7 @@ defineProps({
 
 使用`el-dropdown`下拉菜单组件，这里要调节下拉框的样式需要加`:global`（原因：它不在 app 父组件下，它在与 app 同级的组件 el-popper-container 下）
 
-```Vue
+```vue
 <template>
   <div class="header-info">
     <div class="operation">
@@ -1335,7 +1335,7 @@ const loginStore = useLoginStore()
 1. 根据菜单映射对应的路由。
 2. 进入主页匹配第一个菜单的路由。
 
-```Vue
+```vue
 // utils/map-menus.ts
 import type { RouteRecordRaw } from "vue-router"
 
@@ -1386,7 +1386,7 @@ export function mapMenuToRoutes(menus: any[]) {
 
 弊端：刷新时路由注册不了，代码重新执行时，动态路由就加载不了，因为只有点击登录按钮时才会执行该代码。
 
-```Vue
+```vue
 // store/login/login.ts
 interface ILoginState {
     // ...
@@ -1418,7 +1418,7 @@ export default useLoginStore
 
 `router.addRoute('main', route)`里的 main 是需要在路由表中设置`name`属性。
 
-```Vue
+```vue
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -1449,7 +1449,7 @@ export default router
 
 不再仅限于在登录时调用`mapMenuToRoutes`工具类，而在全局当刷新页面时调用。
 
-```Vue
+```vue
 const useLoginStore = defineStore('login', {
     state: (): ILoginState => ({
         token: '',
@@ -1486,7 +1486,7 @@ const useLoginStore = defineStore('login', {
 
 在 App 组件中调用`loadLocalDataAction`方法，注意：此方法一定要放在`app.router`之前执行。
 
-```Vue
+```vue
 // App.vue
 const app = createApp(App)
 app.use(pinia)
@@ -1501,7 +1501,7 @@ app.mount('#app')
 
 可以将`loadLocalDataAction`方法封装进`pinia`导出的地方，从而使用`app.use()`方法注册进全局 App 组件。
 
-```Vue
+```vue
 //store/index.js
 import { createPinia } from "pinia";
 import useLoginStore from "./login/login";
@@ -1532,7 +1532,7 @@ app.mount('#app')
 
 从`mapMenuToRoutes`工具类中获取`firstMenu`第一个菜单，在路由导航守卫中判断。
 
-```Vue
+```vue
 import { firstMenu } from '@/utils/map-menus'
 
 const router = createRouter({
@@ -1554,7 +1554,7 @@ export default router
 
 根据路由的`url`路径，映射对应菜单`menu`（需要一个路由映射菜单的工具类），从而获得`menu`的`id`属性，将`el-menu`组件属性`:default-active="defaultValue"`的`defaultValue`动态绑定给`menu.id`。
 
-```Vue
+```vue
 // utils/map-menus.ts
 /**
  * 映射路由到菜单工具类
@@ -1571,7 +1571,7 @@ export function mapPathToMenu(menus: any[], path: string) {
 }
 ```
 
-```Vue
+```vue
 // main-menu.vue
 <template>
   <div class="main-menu">
@@ -1612,7 +1612,7 @@ const defaultValue = computed(() => {
 
 使用`el-breadcrumb`搭建面包屑页面，使用工具类`mapPathToBreadCrumb`将菜单`menu`以及子菜单`submenu`放入`breadcrumb`数组，用于动态遍历`el-breadcrumb`。
 
-```Vue
+```vue
 // header-crumb.vue
 <template>
   <div class="header-crumb">
@@ -1644,7 +1644,7 @@ const breadcrumb = computed(() => {
 
 `mapPathToBreadCrumb`工具类
 
-```Vue
+```vue
 // map-menus.ts
 export function mapPathToBreadCrumb(menus: any[], path: string) {
     const breadCrumb: any[] = []
@@ -1665,7 +1665,7 @@ export function mapPathToBreadCrumb(menus: any[], path: string) {
 
 `el-breadcrumb`的`:to=item.url`属性问题，修改工具类`mapMenuToRoutes`将根目录路径重定向到根目录下的第一个子目录。
 
-```Vue
+```vue
 export function mapMenuToRoutes(menus: any[]) {
     // ...
     const finalRoutes: RouteRecordRaw[] = []
@@ -1700,7 +1700,7 @@ export function mapMenuToRoutes(menus: any[]) {
 
 通过`layout`布局组件中的`el-row`和`el-col`对每行每列做布局，使用`el-form`表单组件包含的`el-input`输入框、`el-select`下拉选择以及`el-date-picker`日期选择器实现。
 
-```Vue
+```vue
 // user/cpns/user-search.vue
 <template>
   <div class="search">
@@ -1775,7 +1775,7 @@ export function mapMenuToRoutes(menus: any[]) {
 
 对日期选择器里的日期实现国际化。[Element Plus](https://element-plus.gitee.io/zh-CN/guide/i18n.html) 提供了一个 Vue 组件 [ConfigProvider](https://element-plus.gitee.io/en-US/component/config-provider.html) （`el-config-provider`）用于全局配置国际化的设置。（需要包裹 App 组件）并在`env.d.ts`中声明`.mjs`文件
 
-```Vue
+```vue
 // App.vue
 <template>
     <div class="app">
@@ -1806,7 +1806,7 @@ declare module '*.mjs'
 
 `el-form`表单组件要想输入值，需要使用`reactive()`和`:model`绑定值，并且在相应的组件如`el-input`使用`v-model`绑定`reactive`里面对应的值。重置值调用`formRef.value?.resetFields()`方法（`formRef`绑定到`el-form`上，`el-form-item`上添加属性`prop="xxx"`即可实现）
 
-```JavaScript
+```typescript
 <template>
   <div class="search">
     <el-form **:model="searchForm" ref="formRef"** label-width="120px" size="large">
@@ -1862,7 +1862,7 @@ function handleResetClick() {
 
 编写`axios`请求接口（使用了`hyRequest`进行了封装，直接调用即可）
 
-```JavaScript
+```typescript
 import hyRequest from "@/service";
 
 // 获取用户列表数据
@@ -1879,7 +1879,7 @@ export function getUserListData() {
 
 编写`pinia`进行数据存储
 
-```JavaScript
+```typescript
 import { getUserListData } from "@/service/main/system/system";
 import { defineStore } from "pinia";
 import type { ISystemState } from "./type";
@@ -1907,7 +1907,7 @@ export default useSystemStore
 
 使用`typescript`进行类型限制
 
-```JavaScript
+```typescript
 // type.ts
 export interface IUser {
     id: number
@@ -1929,7 +1929,7 @@ export interface ISystemState {
 
 用户列表页面（`user-content.vue`）中调用`pinia`中的`getUsersListAction`，从而发起请求。
 
-```JavaScript
+```typescript
 // user-content.vue
 <script setup>
 import useSystemStore from '@/store/main/system/system';
@@ -1948,7 +1948,7 @@ const { usersList } = storeToRefs(systemStore)
 
 使用`el-table`及`el-table-column`搭建表格数据页面，`prop`对应请求数据中相应的属性，`type`为`selection`展示勾选框，`type`为`index`展示索引值。`el-table-column`可作为插槽传入其它组件，`:data`传入请求返回的数据。
 
-```JavaScript
+```typescript
 <template>
     <div class="content">
       <div class="header">
@@ -2030,7 +2030,7 @@ console.log(usersList);
 
 **处理状态属性**
 
-```JavaScript
+```typescript
 // ....
 <el-table-column align="center" prop="enable" label="状态" width="100px">
     <!-- 作用域插槽 -->
@@ -2054,7 +2054,7 @@ console.log(usersList);
 
 封装时间格式化工具`format.ts`
 
-```JavaScript
+```typescript
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 
@@ -2068,7 +2068,7 @@ export function formatUTC(utcString: string, format = 'YYYY-MM-DD HH:mm:ss') {
 
 在作用域插槽中使用`formatUTC`
 
-```JavaScript
+```typescript
 // ...
 <el-table-column align="center" prop="createAt" label="创建时间" >
     <template #default="scope">
@@ -2088,7 +2088,7 @@ import { formatUTC } from '@/utils/format';
 
 #### 从请求接口中获取`offset`和`size`分页数据。
 
-```JavaScript
+```typescript
 import hyRequest from "@/service";
 
 // 获取用户列表数据
@@ -2102,7 +2102,7 @@ export function getUserListData(queryInfo: any) {
 
 #### 参数传递
 
-```JavaScript
+```typescript
 const useSystemStore = defineStore('system', {
     // ...
     actions: {
@@ -2119,7 +2119,7 @@ export default useSystemStore
 
 #### 使用`el-pagination`完成页面搭建。
 
-```JavaScript
+```typescript
 // user-content.vue
 // ....
 <div class="pagination">
@@ -2185,7 +2185,7 @@ function fetchUserListData() {
 
 子传父：使用`const emit = defineEmits('xxx')`，`emit('xxx')`
 
-```JavaScript
+```typescript
 // user-search.vue
 <template>
     // ...
@@ -2225,7 +2225,7 @@ function handleQueryClick() {
 
 子传父也可以用`defineExpose()`，这里`user-content`子组件使用此函数接受父组件（由`user-search`传过来）传过来的`searchForm`信息。
 
-```JavaScript
+```typescript
 // user.vue
 <template>
   <div class="user">
@@ -2255,7 +2255,7 @@ function handleResetClick() {
 
 ```
 
-```JavaScript
+```typescript
 <template>
   // ...
 </template>
@@ -2289,7 +2289,7 @@ defineExpose({
 
 #### 封装删除用户数据接口
 
-```JavaScript
+```typescript
 import hyRequest from "@/service";
 // ...
 // 删除用户数据
@@ -2302,7 +2302,7 @@ export function deleteUserData(id: number) {
 
 #### pinia 中调用接口的 actions
 
-```JavaScript
+```typescript
 const useSystemStore = defineStore('system', {
     state: (): ISystemState => ({
         // ...
@@ -2324,7 +2324,7 @@ export default useSystemStore
 
 #### 页面中获取 id 传入 actions
 
-```JavaScript
+```typescript
 <template>
     <div class="content">
       // ...
@@ -2366,7 +2366,7 @@ function handleDeleteClick(id) {
 
 使用`el-dialog`组件实现，`v-model`绑定模态框的`dialogVisible`可见值，封装到函数中，将其暴露给父组件。
 
-```JavaScript
+```typescript
 // user-modal.vue
 <template>
   <div class="modal">
@@ -2434,7 +2434,7 @@ defineExpose({
 
 使用`defineEmits`发起点击事件传递给父组件`user.vue`。
 
-```JavaScript
+```typescript
 // user-content.vue
 <template>
     <div class="content">
@@ -2464,7 +2464,7 @@ function handleNewData() {
 
 **父组件获取事件**
 
-```JavaScript
+```typescript
 // user.vue
 <template>
   <div class="user">
@@ -2490,7 +2490,7 @@ function handleNewDataClick() {
 
 `service`层使用`hyRequest`封装接口。
 
-```JavaScript
+```typescript
 // serivce/main.ts
 import hyRequest from "..";
 
@@ -2509,7 +2509,7 @@ export function getEntireDepartments() {
 
 `pinia`调用接口存储在本地`store`。
 
-```JavaScript
+```typescript
 // store/main.ts
 import { getEntireDepartments, getEntireRoles } from "@/service/main/main";
 import { defineStore } from "pinia";
@@ -2538,7 +2538,7 @@ export default useMainStore
 
 在登录`actions`中发起调用。
 
-```JavaScript
+```typescript
 // store/login.ts
 import useMainStore from "../main/main";
 
@@ -2587,7 +2587,7 @@ export default useLoginStore
 
 在`el-select`中使用`v-for`循环遍历`el-option`，动态回显到`label`属性中。角色和部门数据从`pinia`中获取。
 
-```JavaScript
+```typescript
 <template>
   <div class="modal">
     <el-dialog v-model="dialogVisible" title="新建用户" width="30%" center>
@@ -2628,7 +2628,7 @@ const { entireRoles, entireDepartments } = storeToRefs(mainStore)
 
 #### 封装新建用户请求接口并调用
 
-```JavaScript
+```typescript
 //sevice/main/system/system.ts
 import hyRequest from "@/service";
 // 获取用户列表数据...
@@ -2644,7 +2644,7 @@ export function newUserData(userInfo: any) {
 }
 ```
 
-```JavaScript
+```typescript
 import { deleteUserData, getUserListData, newUserData } from "@/service/main/system/system";
 // ...
 const useSystemStore = defineStore('system', {
@@ -2668,7 +2668,7 @@ const useSystemStore = defineStore('system', {
 })
 ```
 
-```JavaScript
+```typescript
 <template>
   <div class="modal">
     <el-dialog v-model="dialogVisible" title="新建用户" width="30%" center>
@@ -2717,7 +2717,7 @@ function handleConfirmClick() {
 
 #### 封装修改用户请求接口
 
-```JavaScript
+```typescript
 import hyRequest from "@/service";
 // ...
 // 编辑用户数据
@@ -2731,7 +2731,7 @@ export function editUserData(id: number, userInfo: any) {
 
 #### pinia 中调用接口的 actions
 
-```JavaScript
+```typescript
 import { deleteUserData, editUserData, getUserListData, newUserData } from "@/service/main/system/system";
 
 const useSystemStore = defineStore('system', {
@@ -2755,7 +2755,7 @@ export default useSystemStore
 
 使用作用域插槽将子组件`user-content`的点击事件发送给父组件。
 
-```JavaScript
+```typescript
 // user-content.vue
 <template>
     <div class="content">
@@ -2789,7 +2789,7 @@ function handleEditClick(itemData) {
 
 父组件接受点击事件。
 
-```JavaScript
+```typescript
 <template>
   <div class="user">
     // ...
@@ -2815,7 +2815,7 @@ function handleEditDataClick(itemData: any) {
 
 子组件`user-modal`接受父组件传来的方法和参数。对模态框的表单内容进行判断，在编辑数据时除了密码，其它属性都进行回显，`title`变为编辑用户文本。
 
-```JavaScript
+```typescript
 <template>
   <div class="modal">
     <el-dialog v-model="dialogVisible" :title="isNewRef? '新建用户': '编辑用户'" width="30%" center>
@@ -2906,7 +2906,7 @@ defineExpose({
 
 #### 抽取接口的公共特性
 
-```JavaScript
+```typescript
 /** 抽取公共页面接口 */
 // 查询
 export function getPageListData(pageName: string, queryInfo: any) {
@@ -2939,7 +2939,7 @@ export function editPageData(pageName: string, id: number, dataInfo: any) {
 
 #### 抽取 pinia 对应的 actions
 
-```JavaScript
+```typescript
 import { deleteUserData, editUserData, getUserListData, newUserData, deletePageData, editPageData, getPageListData, newPageData } from "@/service/main/system/system";
 import { defineStore } from "pinia";
 import type { ISystemState } from "./type";
@@ -2978,7 +2978,7 @@ const useSystemStore = defineStore('system', {
 export default useSystemStore
 ```
 
-```JavaScript
+```typescript
 export interface ISystemState {
     // 抽取公共页面数据
     pageList: any[]
@@ -2994,7 +2994,7 @@ export interface ISystemState {
 
 `search.config.ts`
 
-```JavaScript
+```typescript
 const searchConfig = {
     labelWidth: '120px',
     formItems: [
@@ -3036,7 +3036,7 @@ export default searchConfig
 
 将里面的具体的属性名称通过`search.config.ts`配置文件来动态遍历具体的属性和表单类型。
 
-```JavaScript
+```typescript
 // page-search.vue
 <template>
   <div class="search">
@@ -3139,7 +3139,7 @@ function handleQueryClick() {
 
 父组件传递参数为`search-config`给子组件。
 
-```JavaScript
+```typescript
 // department.vue
 <template>
   <div class="department">
@@ -3166,7 +3166,7 @@ import searchConfig from './config/search.config'
 
 针对不同类型的表格数据的作用域插槽，区分不同的`type`。
 
-```JavaScript
+```typescript
 const contentConfig = {
     pageName: 'Department',
     header: {
@@ -3193,7 +3193,7 @@ export default contentConfig
 
 #### 重构表格内容组件
 
-```JavaScript
+```typescript
 // page-content.vue
 <template>
   <div class="content">
@@ -3364,7 +3364,7 @@ defineExpose({
 
 #### 父组件引用配置文件（后面统一起来整理）
 
-```JavaScript
+```typescript
 <template>
   <div class="department">
     <page-search @query-click="handleQueryClick" @reset-click="handleResetClick" :search-config="searchConfig"/>
@@ -3413,7 +3413,7 @@ function handleEditDataClick(itemData: any) {
 
 **配置文件**
 
-```JavaScript
+```typescript
 const contentConfig = {
     // ...
     propsList:[
@@ -3429,7 +3429,7 @@ export default contentConfig
 
 **自定义插槽的组件模版**
 
-```JavaScript
+```typescript
 <template>
   <div class="content">
     // ...
@@ -3463,7 +3463,7 @@ export default contentConfig
 
 **父组件编写定制插槽**
 
-```JavaScript
+```typescript
 <template>
   <div class="department">
     <page-search @query-click="handleQueryClick" @reset-click="handleResetClick" :search-config="searchConfig"/>
@@ -3496,7 +3496,7 @@ export default contentConfig
 
 这里的`options`应该是由获取接口数据得到的，后续会进行封装，这里先写为静态的。
 
-```JavaScript
+```typescript
 const modalConfig = {
     header: {
         newTitle: '新建部门',
@@ -3534,7 +3534,7 @@ export default modalConfig
 
 #### 重构模态框内容组件
 
-```JavaScript
+```typescript
 // page-modal.vue
 <template>
   <div class="modal">
@@ -3645,7 +3645,7 @@ defineExpose({
 
 在父组件中将要传入的`modalConfig`进行预处理，使用`pinia`将接口数据（`name`, `id`）先映射成`options`需要的参数（`label`, `value`），再将数据推入到`prop`为`parentId`下的`options`数组中。
 
-```JavaScript
+```typescript
 // 父组件deparment.vue
 <template>
   <div class="department">
@@ -3685,7 +3685,7 @@ const modalConfigRef = computed(() => {
 
 #### 抽取表单搜索内容中的搜索功能和重置功能。
 
-```JavaScript
+```typescript
 // hooks/usePageContent.ts
 import type PageContent from "@/components/page-content/page-content.vue"
 import { ref } from "vue"
@@ -3712,7 +3712,7 @@ export function usePageContent() {
 
 #### 抽取模态框中新增和编辑功能。
 
-```JavaScript
+```typescript
 // hooks/usePageModal.ts
 import type PageModal from "@/components/page-modal/page-modal.vue"
 import { ref } from "vue"
@@ -3740,7 +3740,7 @@ export function usePageModal() {
 
 #### 父组件中调用 hooks。
 
-```JavaScript
+```typescript
 <script setup lang="ts" name="department">
 import { usePageContent } from '@/hooks/usePageContent'
 import { usePageModal } from '@/hooks/usePageModal'
@@ -3762,7 +3762,7 @@ const { modalRef, handleEditDataClick, handleNewDataClick } = usePageModal()
 
 > [树形数据](https://element-plus.gitee.io/zh-CN/component/table.html#%E6%A0%91%E5%BD%A2%E6%95%B0%E6%8D%AE%E4%B8%8E%E6%87%92%E5%8A%A0%E8%BD%BD)：支持树类型的数据的显示。 当 row 中包含 `children` 字段时，被视为树形数据。 渲染嵌套数据需要 prop 的 `row-key`。 此外，子行数据可以异步加载。 设置 Table 的`lazy`属性为 true 与加载函数 `load` 。 通过指定 row 中的`hasChildren`字段来指定哪些行是包含子节点。 `children` 与`hasChildren`都可以通过 `tree-props` 配置。
 
-```JavaScript
+```typescript
 // page-content.vue
 <template>
   <div class="content">
@@ -3932,7 +3932,7 @@ defineExpose({
 
 使用配置项绑定`row-key`属性。
 
-```JavaScript
+```typescript
 // content.config.ts
 const contentConfig = {
     pageName: 'menu',
@@ -3967,7 +3967,7 @@ export default contentConfig
 
 使用配置文件完成。
 
-```JavaScript
+```typescript
 // modal.config.ts
 const modalConfig = {
     pageName: 'menu',
@@ -4042,7 +4042,7 @@ export default modalConfig
 
 父组件`menu.vue`传递配置文件中的配置项。
 
-```JavaScript
+```typescript
 <template>
   <div class="menu">
     <page-content :content-config="contentConfig" @new-data-click="handleNewDataClick" @edit-data-click="handleEditDataClick"/>
@@ -4077,7 +4077,7 @@ const { modalRef, handleEditDataClick, handleNewDataClick } = usePageModal()
 
 #### 封装请求接口数据
 
-```JavaScript
+```typescript
 // service/main.ts
 // 获取所有菜单
 export function getEntireMenus() {
@@ -4088,7 +4088,7 @@ export function getEntireMenus() {
 
 ```
 
-```JavaScript
+```typescript
 // store/main.ts
 import { getEntireDepartments, getEntireMenus, getEntireRoles } from "@/service/main/main";
 import { defineStore } from "pinia";
@@ -4119,7 +4119,7 @@ export default useMainStore
 
 因为新建角色在模态框中展现，因此在`modal.config.ts`中定义。
 
-```JavaScript
+```typescript
 const modalConfig = {
     pageName: 'role',
     header: {
@@ -4154,7 +4154,7 @@ export default modalConfig
 
 在`page-modal.vue`中编写`type`为`custom`的作用域插槽。
 
-```JavaScript
+```typescript
 <template>
   <div class="modal">
     <el-dialog v-model="dialogVisible" :title="isEdit ? modalConfig.header.editTitle : modalConfig.header.newTitle" width="30%" center>
@@ -4188,7 +4188,7 @@ export default modalConfig
 
 使用`el-tree`中的树节点选择实现，将请求接口数据`entireMenus`传入给`:data`即可。
 
-```JavaScript
+```typescript
 <template>
   <div class="role">
     <page-search :search-config="searchConfig" @query-click="handleQueryClick" @reset-click="handleResetClick"/>
@@ -4240,7 +4240,7 @@ const { entireMenus } = storeToRefs(mainStore)
 
 #### 父组件中获取权限数据并传递给 page-modal 子组件
 
-```JavaScript
+```typescript
 // role.vue
 <template>
   <div class="role">
@@ -4270,7 +4270,7 @@ function handleELTreeCheck(data1: any, data2: any) {
 
 #### 子组件接受数据并将其合并发送给服务器
 
-```JavaScript
+```typescript
 // page-modal.vue
 <script setup lang="ts" name="modal">
 // ...
@@ -4308,7 +4308,7 @@ function handleConfirmClick() {
 
 #### 封装菜单映射权限 Id 列表的工具
 
-```JavaScript
+```typescript
 // utils/map-menus.ts
 /**
  * 菜单映射到id的列表（用于角色管理的权限树分配）
@@ -4337,7 +4337,7 @@ export function mapMenuListToIds(menuList: any[]) {
 
 在点击编辑按钮触发`usePageModal`事件时，传入的参数`itemData`中可以拿到模态框里的数据（包括菜单树控件`el-tree`），但是因为点击编辑事件封装在`hooks`里面，在`role.vue`中需要传入一个函数`editCallback`来获取。
 
-```JavaScript
+```typescript
 type callbackType = (item: any) => void
 export function usePageModal(editCallback?: callbackType) {
     const modalRef = ref<InstanceType<typeof PageModal>>()
@@ -4364,7 +4364,7 @@ export function usePageModal(editCallback?: callbackType) {
 
 ![](https://secure2.wostatic.cn/static/g74CyDLQpixmcAHwDpCFbs/image.png)
 
-```JavaScript
+```typescript
 <template>
   <div class="role">
     // ...
@@ -4411,7 +4411,7 @@ function editCallback(data: any){
 
 #### 重置角色权限菜单树的数据
 
-```JavaScript
+```typescript
 // role.vue
 <script setup lang="ts">
 import { ref, nextTick } from 'vue';
@@ -4435,7 +4435,7 @@ function newCallback(){
 
 #### hooks 中调用
 
-```JavaScript
+```typescript
 // ...
 type callbackType = (item?: any) => void
 export function usePageModal(newCallback?: callbackType, editCallback?: callbackType) {
@@ -4460,7 +4460,7 @@ export function usePageModal(newCallback?: callbackType, editCallback?: callback
 
 ### 封装菜单映射按钮权限工具
 
-```JavaScript
+```typescript
 // map-menus.ts
 /**
  * 菜单映射到按钮的权限permissions
@@ -4491,7 +4491,7 @@ export function mapMenuListToPermissions(menuList :any) {
 
 使用菜单映射按钮权限工具，获取登录用户的所有权限，存入`pinia`中。
 
-```JavaScript
+```typescript
 import { mapMenuListToPermissions, mapMenuToRoutes } from "@/utils/map-menus";
 
 interface ILoginState {
@@ -4533,7 +4533,7 @@ export default useLoginStore
 
 用于查询某个页面的权限是否在获取到的登录用户所有权限中，如判断`department:create`、`department:update`是否包含在登录用户存入在`pinia`中的`permissions`数组，用`permissions.find`去查找。
 
-```JavaScript
+```typescript
 // hooks/usePermission.ts
 import useLoginStore from '@/store/login/login'
 
@@ -4553,7 +4553,7 @@ export default usePermission
 
 调用 hooks，判断每一个按钮是否有有对应的增删改查权限，使用`v-if`控制对应按钮的显示。
 
-```JavaScript
+```typescript
 <template>
   <div class="content">
     <div class="header">
@@ -4627,7 +4627,7 @@ function fetchPageListData(formData: any = {}) {
 
 > 订阅 `action`：你可以通过 `store.$onAction()` 来监听 `action` 和它们的结果。传递给它的回调函数会在 `action` 本身之前执行。`after` 表示在 promise 解决之后，允许你在 `action` 解决后执行一个回调函数。同样地，`onError` 允许你在 `action` 抛出错误或 `reject` 时执行一个回调函数。
 
-```JavaScript
+```typescript
 // page-content.vue
 <script setup lang="ts" name="content">
 // ...
@@ -4651,7 +4651,7 @@ systemStore.$onAction(({ name, after }) => {
 
 使用了`withDefaults`实现。
 
-```JavaScript
+```typescript
 // cpns/count-card/count-card.vue
 <template>
   <div class="count-card">
@@ -4737,7 +4737,7 @@ withDefaults(defineProps<IProps>(), {
 
 使用`hyRequest`和`pinia`封装网络请求以及数据。
 
-```JavaScript
+```typescript
 // service/main/analysis.ts
 import hyRequest from "@/service";
 
@@ -4748,7 +4748,7 @@ export function getAmountListData() {
 }
 ```
 
-```JavaScript
+```typescript
 import { getAmountListData } from "@/service/main/analysis/analysis";
 import { defineStore } from "pinia";
 
@@ -4772,7 +4772,7 @@ export default useAnalysisStore
 
 #### 父组件获取请求数据并传递给子组件
 
-```JavaScript
+```typescript
 // views/main/analysis.vue
 <template>
   <div class="dashboard">
@@ -4804,7 +4804,7 @@ const { amountList } = storeToRefs(analysisStore)
 
 安装`npm install countup.js`
 
-```JavaScript
+```typescript
 <template>
   // ...
   <span ref="count1Ref">{{ number1 }}</span>
@@ -4859,7 +4859,7 @@ onMounted(() => {
 
 使用`el-col`的`xs`，`sm`，`md`，`lg`，`xl`实现。
 
-```JavaScript
+```typescript
 <el-col :span="6" :xs="24" :sm="12" :md="8" :lg="6">
   // ...
 </el-col>
@@ -4875,7 +4875,7 @@ onMounted(() => {
 
 使用`el-card`卡片，将`echart`可视化图形聚合在卡片容器中展示。
 
-```JavaScript
+```typescript
 // chart-card.vue
 <template>
     <div class="chart-card">
@@ -4900,7 +4900,7 @@ onMounted(() => {
 
 #### 引入 ECharts 的饼图
 
-```JavaScript
+```typescript
 // dashboard.vue
 <template>
   <div class="dashboard">
@@ -5017,7 +5017,7 @@ onMounted(() => {
 
 `base-echart`做初始化（基于准备好的`dom`，初始化`echart`实例），用于接收不同`echart`图形的`option`配置。监听`window`的`resize`属性设置`echartInstance.resize()`可以实现`echart`的响应式。
 
-```JavaScript
+```typescript
 // base-echart.vue
 <template>
   <div class="base-echart">
@@ -5067,7 +5067,7 @@ onMounted(() => {
 
 编写`option`配置，将`option`传入子组件`base-echart.vue`，使用`:option`接收。
 
-```JavaScript
+```typescript
 // pie-echart.vue
 <template>
   <div class="pie-echart">
@@ -5123,7 +5123,7 @@ const option: EChartsOption = {
 
 #### 统一导出
 
-```JavaScript
+```typescript
 // index.ts
 import BaseEchart from './src/base-echart.vue'
 import PieEchart from './src/pie-echart.vue'
@@ -5136,7 +5136,7 @@ export default BaseEchart
 
 #### 引入 ECharts 图形
 
-```JavaScript
+```typescript
 // dashboard,vue
 <template>
   <div class="dashboard">
@@ -5174,7 +5174,7 @@ export default BaseEchart
 
 #### 封装 service 请求接口
 
-```JavaScript
+```typescript
 // service/analysis.ts
 // 获取饼图分类商品数量
 export function getGoodsCategoryCount() {
@@ -5187,7 +5187,7 @@ export function getGoodsCategoryCount() {
 
 #### 封装 pinia 请求数据
 
-```JavaScript
+```typescript
 // store/analysis.ts
 import { getAmountListData, getGoodsCategoryCount } from "@/service/main/analysis/analysis";
 import { defineStore } from "pinia";
@@ -5220,7 +5220,7 @@ export default useAnalysisStore
 
 父组件`dashboard.vue`发起请求获取饼图数据，将数据（`name`，`goodsCount`）通过`map`映射成饼图需要的数据（`name`，`value`），通过`:pie-data="showGoodsCategoryCount`传递给子组件`pie-echart.vue`。
 
-```JavaScript
+```typescript
 // dashboard.vue
 <template>
   <div class="dashboard">
@@ -5263,7 +5263,7 @@ const showGoodsCategoryCount = computed(() => {
 
 #### 子组件动态接收饼图 option 数据
 
-```JavaScript
+```typescript
 <template>
   <div class="pie-echart">
     <base-echart :option="option"/>
@@ -5321,7 +5321,7 @@ const option = computed<EChartsOption>(() => {
 
 #### 封装请求接口的动态数据
 
-```JavaScript
+```typescript
 // service/analysis.ts
 // 获取饼图、玫瑰图分类商品数量
 export function getGoodsCategoryCount() {
@@ -5346,7 +5346,7 @@ export function getGoodsCategoryFavor() {
 
 ```
 
-```JavaScript
+```typescript
 // store/analysis.ts
 import { getAmountListData, getGoodsCategoryCount, getGoodsCategoryFavor, getGoodsCategorySale } from "@/service/main/analysis/analysis";
 import { defineStore } from "pinia";
@@ -5391,7 +5391,7 @@ export default useAnalysisStore
 
 #### 封装 Type 类型接口
 
-```JavaScript
+```typescript
 // types/index.ts
 export interface IEchartValueType {
     value: number
@@ -5401,7 +5401,7 @@ export interface IEchartValueType {
 
 #### 实现玫瑰图数据展示
 
-```JavaScript
+```typescript
 // page-echarts/src/rose-echart.vue
 <template>
   <div class="pie-echart">
@@ -5462,7 +5462,7 @@ const option = computed<EChartsOption>(() => {
 
 #### 实现折线图数据展示
 
-```JavaScript
+```typescript
 // page-echarts/src/line-echart.vue
 <template>
   <div class="line-echart">
@@ -5521,7 +5521,7 @@ const option = computed<EChartsOption>(() => {
 
 #### 实现柱状图数据展示
 
-```JavaScript
+```typescript
 // // page-echarts/src/bar-echart.vue
 <template>
   <div class="bar-echart">
@@ -5597,7 +5597,7 @@ const option = computed<EChartsOption>(() => {
 
 #### 父组件将接口数据映射 Echart 需要的数据进行传递使用
 
-```JavaScript
+```typescript
 // dashboard.vue
 <template>
   <div class="dashboard">
@@ -5699,7 +5699,7 @@ const showGoodsCategoryFavor = computed(() => {
 
 #### 封装坐标信息
 
-```JavaScript
+```typescript
 // utils/coordinate-data.ts
 export const coordinateData: any = {
   上海: [121.487899486, 31.24916171],
@@ -6057,7 +6057,7 @@ export const coordinateData: any = {
 
 #### 封装转化坐标信息属性为 echart 地图所需属性工具
 
-```JavaScript
+```typescript
 // utils/convert-data.ts
 import { coordinateData } from "./coordinate-data"
 
@@ -6079,7 +6079,7 @@ export function convertData(data: any) {
 
 #### echart 注册地图
 
-```JavaScript
+```typescript
 // base-echart.vue
 <template>
   <div class="base-echart">
@@ -6131,7 +6131,7 @@ onMounted(() => {
 
 #### 编写 echart 地图组件
 
-```JavaScript
+```typescript
 // map-echart.vue
 <template>
   <div class="map-echart">
@@ -6231,7 +6231,7 @@ const option = computed<EChartsOption>(() => {
 
 #### 封装地图商品销量请求数据
 
-```JavaScript
+```typescript
 // service/analysis.ts
 // 获取地图数据
 export function getGoodsAddressSale() {
@@ -6241,7 +6241,7 @@ export function getGoodsAddressSale() {
 }
 ```
 
-```JavaScript
+```typescript
 import { getAmountListData, getGoodsAddressSale, getGoodsCategoryCount, getGoodsCategoryFavor, getGoodsCategorySale } from "@/service/main/analysis/analysis";
 import { defineStore } from "pinia";
 
@@ -6274,7 +6274,7 @@ export default useAnalysisStore
 
 #### 父组件传递数据给地图组件
 
-```JavaScript
+```typescript
 // dashboard.vue
 <template>
   <div class="dashboard">
