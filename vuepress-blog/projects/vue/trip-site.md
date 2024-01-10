@@ -12,7 +12,7 @@ tag:
 
 ## 项目结构
 
-![](https://secure2.wostatic.cn/static/8bSwSCaSj2tXFzUW7BiXcv/image.png?auth_key=1690641439-wQpbhhiaBcLL7V5nCojWYA-0-d885ae8c87ff19fc436729861ace2b0b)
+![项目结构](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_1vDR4XntPq.png)
 
 ## CSS 样式重置
 
@@ -22,7 +22,7 @@ tag:
 
 导入自定义样式重置文件
 
-```vue
+```javascript
 // css/index.css
 @import "./reset.css";
 @import "./common.css";
@@ -35,7 +35,7 @@ import "./assets/css/index.css"
 
 ## 路由配置
 
-```vue
+```javascript
 // router/index.js
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -72,7 +72,7 @@ export default router;
 
 ```
 
-```vue
+```javascript
 // main.js
 import router from "./router"
 
@@ -81,7 +81,7 @@ createApp(App).use(router).mount('#app')
 
 ## 开发环境配置
 
-```vue
+```javascript
 // .env
 VITE_BASE_URL=http://xxx.com:8000
 VITE_TIME_OUT=10000
@@ -98,7 +98,7 @@ VITE_TIME_OUT=10000
 
 配置 pinia
 
-```vue
+```javascript
 // stores/index.js
 import { createPinia } from 'pinia'
 
@@ -106,7 +106,7 @@ const pinia = createPinia()
 export default pinia
 ```
 
-```vue
+```javascript
 import pinia from './stores'
 
 createApp(App).use(router).use(pinia).mount('#app')
@@ -123,7 +123,7 @@ createApp(App).use(router).use(pinia).mount('#app')
 - 安装插件：`npm i unplugin-vue-components -D`
 - 配置插件
 
-```vue
+```javascript
 // vite.config.js
 import vue from '@vitejs/plugin-vue';
 import Components from 'unplugin-vue-components/vite';
@@ -145,7 +145,7 @@ export default {
 1. **方法一**：用插槽，插入自己的元素，在自己的作用域中直接修改该元素。
 2. **方法二**：全局定义一个变量，覆盖它默认变量的值（缺点：全局修改）
 
-```css
+```less
 :root {
   /* 全局修改: 任何地方只要用到-van-tabbar-item-icon-size都会被修改掉 */
   --van-tabbar-item-icon-size: 30px !important;
@@ -154,10 +154,10 @@ export default {
 
 3. **方式三**：局部定义一个变量，覆盖它默认变量的值（优点：局部修改）
 
-```vue
+```less
 <style lang="less" scoped>
 .tab-bar {
-  // 局部定义一个变量: 只针对.tab-bar子元素才生效
+  /* 局部定义一个变量: 只针对.tab-bar子元素才生效 */
   --van-tabbar-item-icon-size: 30px !important;
 }
 </style>
@@ -166,12 +166,13 @@ export default {
 4. **方式四**：F12 直接查找对应的子组件选择器，直接修改 CSS（非自定义插槽）。
    - `:deep(子组件中元素选择器)`进行修改
 
-```vue
+```less
 <style lang="less" scoped>
 .tab-bar {
-  // 找到类, 对类中的CSS属性重写
-  // :deep(.class)找到子组件的类, 让子组件的类也可以生效(渗透子组件)
-  // 不加deep不起作用，因为加了scoped，在自己的组件css作用域中
+  /* 找到类, 对类中的CSS属性重写
+   * :deep(.class)找到子组件的类, 让子组件的类也可以生效(渗透子组件)
+   * 不加deep不起作用，因为加了scoped，在自己的组件css作用域中
+   */
   :deep(.van-tabbar-item__icon) {
     font-size: 50px;
   }
@@ -183,7 +184,7 @@ export default {
 ## Tabbar 组件
 
 ```vue
-// tabbar.vue
+<!-- tabbar.vue -->
 <template>
   <div class="tab-bar">
     <van-tabbar v-model="currentIndex" active-color="#ff9854">
@@ -192,7 +193,7 @@ export default {
           <template #default>
             <span>{{ item.text }}</span>
           </template>
-          // 具名插槽
+          <!-- 具名插槽 -->
           <template #icon>
             <img v-if="currentIndex !== index" :src="getAssetURL(item.image)" alt="">
             <img v-else :src="getAssetURL(item.imageActive)" alt="">
@@ -222,11 +223,11 @@ export default {
 
 <style lang="less" scoped>
 .tab-bar {
-  // 局部定义一个变量: 只针对.tab-bar子元素才生效
-  // --van-tabbar-item-icon-size: 30px !important;
+  /* 局部定义一个变量: 只针对.tab-bar子元素才生效
+   --van-tabbar-item-icon-size: 30px !important;*/
 
-  // 找到类, 对类中的CSS属性重写
-  // :deep(.class)找到子组件的类, 让子组件的类也可以生效
+  /* 找到类, 对类中的CSS属性重写
+   :deep(.class)找到子组件的类, 让子组件的类也可以生效*/
   :deep(.van-tabbar-item__icon) {
     font-size: 50px;
   }
@@ -243,7 +244,7 @@ export default {
 使用`navigator.geolocation`API
 
 ```vue
-// home-search-box
+<!-- home-search-box -->
 <template>
   <div class="search-box">
     <div class="location bottom-gray-line ">
@@ -278,7 +279,6 @@ const positionClick = () => {
 }
 
 </script>
-
 ```
 
 ## 指定页面隐藏导航栏 TabBar 组件
@@ -288,21 +288,21 @@ const positionClick = () => {
 配置路由中需要隐藏 TabBar 一个`meta`属性，在父组件调用`<TabBar>`时进行`v-if`判断（使用`useRoute`获取当前活跃路由）
 
 ```vue
-// router/index.js
+<!-- router/index.js -->
   {
     path:"/city",
     component: () => import("@/views/city/city.vue"),
-    // 显示城市时。隐藏底部导航栏（useRoute可获得当前活跃路由）
+    <!-- 显示城市时。隐藏底部导航栏（useRoute可获得当前活跃路由） -->
     meta: {
       hideTabBar: true
     }
   }
-// App.vue
+<!-- App.vue -->
 <template>
   <div class="app">
     <router-view/>
 
-    // 方法一：隐藏底部导航栏
+    <!-- 方法一：隐藏底部导航栏 -->
     <tab-bar v-if="!route.meta.hideTabBar"></tab-bar>
   </div>
 </template>
@@ -314,21 +314,20 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 </script>
 <style scoped>
-
 ```
 
 方法二：
 
 通过 CSS 样式解决，将样式添加到需要隐藏的组件`class`上
 
-```vue
+```css
 /* 隐藏底部导航栏样式 */
 .top-page {
   position: relative;
   z-index: 9;
   height: 100vh;
   background-color: #fff;
-  // 在100vh视口滚动
+  /* 在100vh视口滚动 */
   overflow-y: auto;
 }
 ```
@@ -337,7 +336,7 @@ const route = useRoute()
 
 ### 搜索框实现
 
-![](https://secure2.wostatic.cn/static/oEZrMXDMmUdYkYRuuN4h6Q/image.png?auth_key=1690641439-2GdXoNzoutW1cGDsREzMc8-0-627cdba76cd7fe804b03aa1fd44706ac)
+![搜索框实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_orXjUvteaK.png)
 
 使用 Vant 组件库的`<vant-search>`组件
 
@@ -345,13 +344,13 @@ const route = useRoute()
 <template>
   <div class="city top-page">
     <div class="top">
-      // <!-- 1.搜索框 -->
+      <!-- 1.搜索框 -->
       <van-search
         v-model="searchValue"
-        // 圆角
+        <!-- 圆角 -->
         shape="round"
         placeholder="城市/区域/位置"
-        // 显示取消
+        <!-- 显示取消 -->
         show-action
         @cancel="onCancel"
       />
@@ -371,18 +370,18 @@ const route = useRoute()
 
 ### Tab 标签页数据切换实现
 
-![](https://secure2.wostatic.cn/static/xxhrAa8K38rzphruCKyCcg/image.png?auth_key=1690641440-8ErXUZ96rdQnDGd8KJcGYZ-0-41c98faf8b8e33b9e012dbd06c2f06b4)
+![Tab 标签页数据切换实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_o7FD3_PSr_.png)
 
 使用 Vant 组件库的`<vant-tabs>`组件
 
 #### 主组件
 
 ```vue
-// city.vue
+<!-- city.vue -->
 <template>
   <div class="city top-page">
     <div class="top">
-      // <!-- 1.搜索框 -->
+      <!-- 1.搜索框 -->
       <van-search
         v-model="searchValue"
         shape="round"
@@ -390,8 +389,8 @@ const route = useRoute()
         show-action
         @cancel="onCancel"
       />
-      // !-- 2.tab标签页的切换 -->
-      // <!-- tabActive默认索引,加上name属性即可作为标签的索引值 -->
+      <!-- 2.tab标签页的切换 -->
+      <!-- tabActive默认索引,加上name属性即可作为标签的索引值 -->
       <van-tabs v-model:active="tabActive" color="#fff9854">
         <template v-for="(value, key, index) in allCities" :key="key">
           <van-tab :title="value.title" :name="key"></van-tab>
@@ -399,11 +398,11 @@ const route = useRoute()
       </van-tabs>
     </div>
 
-    // 切换栏对应数据（具体实现看IndexBar索引栏）
+    <!-- 切换栏对应数据（具体实现看IndexBar索引栏） -->
     <div class="content">
-      // <!-- group-data父传子 -->
-      // <city-group :group-data="currentGroup"/>
-      // <!-- 使用v-show优化渲染 -->
+      <!-- group-data父传子 -->
+      <city-group :group-data="currentGroup"/>
+      <!-- 使用v-show优化渲染 -->
       <template v-for="(value, key, index) in allCities" :key="key">
         <city-group v-show="tabActive === key" :group-data="value"/>
       </template>
@@ -439,7 +438,6 @@ const { allCities } = storeToRefs(cityStore)
 // 1.获取正确的key: 将tabs中绑定的tabAction正确绑定
 // 2.根据key从allCities获取数据, 默认直接获取的数据不是响应式的, 所以必须包裹computed
 // const currentGroup = computed(() => allCities.value[tabActive.value])
-
 </script>
 
 <style lang="less" scoped>
@@ -455,7 +453,7 @@ const { allCities } = storeToRefs(cityStore)
 
 #### Pinia 存储
 
-```vue
+```javascript
 // stores/modules/city.js
 import { getCityAll } from "@/services"
 import { defineStore } from "pinia"
@@ -473,14 +471,13 @@ const useCityStore = defineStore("city", {
 })
 
 export default useCityStore
-
 ```
 
 #### 城市数据接口实现（services）
 
 **封装 axios**
 
-```vue
+```javascript
 import axios from 'axios'
 import { BASE_URL, TIMEOUT } from './config'
 
@@ -513,31 +510,28 @@ class MyRequest {
 }
 
 export default new MyRequest(BASE_URL, TIMEOUT)
-
 ```
 
 **后台地址配置**
 
-```vue
+```javascript
 // services/request/config.js
 export const BASE_URL = "http://123.207.32.32:1888/api"
 export const TIMEOUT = 10000
-
 ```
 
 **统一导出**
 
-```vue
+```javascript
 // services/index.js
 export * from "./modules/city"
 export * from './modules/home'
 export * from './modules/detail'
-
 ```
 
 **实现封装 axios 路径**
 
-```vue
+```javascript
 // services/modules/city.js
 import myRequest from '../request'
 
@@ -546,17 +540,16 @@ export function getCityAll() {
     url: "/city/all"
   })
 }
-
 ```
 
 ### 城市列表索引栏及热门实现
 
-![](https://secure2.wostatic.cn/static/d76SNawVitR1chph8jm6VH/image.png?auth_key=1690641439-rGP7A1Gz1XLE5pBgBXRxY9-0-04aa855967e776b41c8b99d8a4ea2e36)
+![城市列表索引栏及热门实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_ALrrk9QeGM.png)
 
 使用 Vant 组件库的`<vant-tabs>`组件，将功能封装到`city-group`组件。`index-list`+`computed()`属性实现动态城市列表映射。通过`list.unshif("#")`添加热门索引。
 
 ```vue
-// city-group.vue
+<!-- city-group.vue -->
 <template>
   <div class="city-group" :index-list="indexList">
     <van-index-bar>
@@ -599,7 +592,7 @@ const indexList = computed(() => {
 <style lang="less" scoped>
 .list {
   display: flex;
-  // 换行
+  /* 换行 */
   flex-wrap: wrap;
   justify-content: space-around;
   padding: 10px;
@@ -625,7 +618,7 @@ const indexList = computed(() => {
 对`template`中的点击事件进行实现，将选中的城市`currentCity`存入`pinia`的`store`
 
 ```vue
-// city-group.vue
+<!-- city-group.vue -->
 <script setup>
   import useCityStore from "@/stores/modules/city";
   // ...
@@ -644,7 +637,7 @@ const indexList = computed(() => {
 首页调用`useCityStore()`在`template`中进行回显
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <template>
   <div class="search-box">
     <div class="location bottom-gray-line ">
@@ -664,12 +657,11 @@ const indexList = computed(() => {
   const cityStore = useCityStore()
   const { currentCity } = storeToRefs(cityStore)
 </script>
-
 ```
 
 ## 首页日期选择实现
 
-![](https://secure2.wostatic.cn/static/6ZT2QMxyKQet4CBFQxrHUZ/image.png)
+![首页日期选择实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_RYoFN6njZu.png)
 
 ### 日期格式化
 
@@ -677,7 +669,7 @@ const indexList = computed(() => {
 
 使用`dayjs`将日期格式化封装为工具类
 
-```vue
+```javascript
 // format_date.js
 import dayjs from 'dayjs'
 
@@ -690,22 +682,21 @@ export function formatMonthDay(date, formatStr = "MM月DD日"){
 export function getDiffDays(startDate, endDate){
   return dayjs(endDate).diff(startDate, "day")
 }
-
 ```
 
 ### 动态显示日期范围及日历组件
 
-![](https://secure2.wostatic.cn/static/w74W8szAhpEcbvQTr23mJb/image.png)
+![动态显示日期范围及日历组件](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_8wBOSxCNq-.png)
 
 使用 Vant 中`<van-calendar>`实现日历组件，停留天数计算使用封装工具`getDiffDays`
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <template>
   <div class="search-box">
-    // <!-- 位置信息 ....-->
+    <!-- 位置信息 ....-->
 
-    // <!-- 日期范围，绑定点击事件打开calendar组件-->
+    <!-- 日期范围，绑定点击事件打开calendar组件-->
     <div class="section date-range bottom-gray-line" @click="showCalendar =true">
       <div class="start">
         <div class="date">
@@ -721,9 +712,8 @@ export function getDiffDays(startDate, endDate){
         </div>
       </div>
     </div>
-    // <!-- 日历组件 -->
+    <!-- 日历组件 -->
     <van-calendar v-model:show="showCalendar" type="range" :round="false" @confirm="onConfirm" />
-
   </div>
 </template>
 
@@ -756,12 +746,12 @@ export function getDiffDays(startDate, endDate){
 </script>
 
 <style lang="less" scoped>
-// calendar组件占满整个高度
+/* calendar组件占满整个高度 */
 .search-box {
   --van-calendar-popup-height: 100%;
 }
 
-// 日期范围样式
+/* 日期范围样式 */
 .section {
   display: flex;
   flex-wrap: wrap;
@@ -811,13 +801,12 @@ export function getDiffDays(startDate, endDate){
   }
 }
 </style>
-
 ```
 
 ### （优化）使用 Pinia 状态管理库存储时间
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <script setup>
   // 日期范围处理
   import { useMainStore } from '@/stores/modules/main';
@@ -851,7 +840,7 @@ export function getDiffDays(startDate, endDate){
 
 发送网络请求从服务器获取数据，以下有 2 种思路（传统结构和分层结构）
 
-![](https://secure2.wostatic.cn/static/8QLg2Q8ERyH3CeX5jtVTQm/image.png)
+![热门建议数据展示](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_XKJT-kANF8.png)
 
 ### 传统结构（不建议）
 
@@ -860,7 +849,7 @@ export function getDiffDays(startDate, endDate){
 #### 父组件发送网络请求
 
 ```vue
-// home.vue
+<!-- home.vue -->
 <script setup>
   import myRequest from '@/services/request/index';
   import { ref } from 'vue';
@@ -879,10 +868,10 @@ export function getDiffDays(startDate, endDate){
 #### 请求数据传递给子组件
 
 ```vue
-// home.vue
+<!-- home.vue -->
 <template>
   <div class="home">
-    // ...
+    <!-- ... -->
     <home-search-box :hot-suggests="hotSuggests"/>
   </div>
 </template>
@@ -893,15 +882,15 @@ export function getDiffDays(startDate, endDate){
 子组件通过`defineProps`接收父组件传递的参数
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <template>
   <div class="search-box">
-    // <!-- 位置信息 -->
-    // <!-- 日期范围 -->
-    // <!-- 日历组件 -->
-    // <!-- 价格/人数选择 -->
-    // ...
-    // <!-- 热门建议  -->
+    <!-- 位置信息 -->
+    <!-- 日期范围 -->
+    <!-- 日历组件 -->
+    <!-- 价格/人数选择 -->
+    <!-- ... -->
+    <!-- 热门建议  -->
     <div class="section hot-suggests">
       <template v-for="(item, index) in hotSuggests" :key="index">
         <div class="item" :style="{ color: item.tagText.color, background: item.tagText.background.color }">
@@ -921,7 +910,6 @@ export function getDiffDays(startDate, endDate){
     }
   })
 </script>
-
 ```
 
 ### 分层结构
@@ -933,7 +921,7 @@ export function getDiffDays(startDate, endDate){
 
 在`services`层封装主页中的热门建议网络请求
 
-```vue
+```javascript
 // services/modules/home.js
 import myRequest from '../request'
 
@@ -942,14 +930,13 @@ export function getHomeHotSuggests() {
     url: "/home/hotSuggests"
   })
 }
-
 ```
 
 #### 使用 pinia 状态管理库
 
 将网络请求的返回的数据存储在 pinia 中，进一步封装
 
-```vue
+```javascript
 // stores/modules/home.js
 import { getHomeHotSuggests } from "@/services/modules/home";
 import { defineStore } from "pinia";
@@ -967,13 +954,12 @@ const useHomeStore = defineStore("home", {
 })
 
 export default useHomeStore
-
 ```
 
 #### 子组件获取数据
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <script setup>
   import useHomeStore from '@/stores/modules/home';
   import { storeToRefs } from 'pinia';
@@ -989,10 +975,10 @@ export default useHomeStore
 需要调用一下`stores`中`actions`定义的网络请求
 
 ```vue
-// home.vue
+<!-- home.vue -->
 <template>
   <div class="home">
-    // ...
+    <!-- ... -->
     <home-search-box/>
   </div>
 </template>
@@ -1003,21 +989,20 @@ import useHomeStore from '@/stores/modules/home';
 // 热门建议
 const homeStore = useHomeStore()
 homeStore.fetchHotSuggestData()
-
 </script>
 ```
 
 ## 首页搜索按钮实现
 
-![](https://secure2.wostatic.cn/static/mzgV6XkVrBszbDzbVV6oxC/image.png)
+![首页搜索按钮实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_cVj1v327jL.png)
 
 ### 搜索按钮样式实现
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <template>
   <div class="search-box">
-    // <!-- 搜索按钮 -->
+    <!-- 搜索按钮 -->
     <div class="section search-btn">
       <div class="btn" @click="searchBtnClick">开始搜索</div>
     </div>
@@ -1025,7 +1010,7 @@ homeStore.fetchHotSuggestData()
 </template>
 
 <style lang="less" scoped>
-// 搜索按钮样式
+/* 搜索按钮样式 */
 .search-btn {
   .btn {
     width: 342px;
@@ -1041,13 +1026,12 @@ homeStore.fetchHotSuggestData()
   }
 }
 </style>
-
 ```
 
 ### 监听搜索事件（事件路由传参）
 
 ```vue
-// home-search-box.vue
+<!-- home-search-box.vue -->
 <script setup>
   // 监听搜索事件
   const searchBtnClick = () => {
@@ -1068,7 +1052,7 @@ homeStore.fetchHotSuggestData()
 使用`$route.query`获取`query`参数
 
 ```vue
-// search/search.vue
+<!-- search/search.vue -->
 <template>
   <div class="search">
     <h2>{{ $route.query.startDate }}</h2>
@@ -1086,7 +1070,7 @@ homeStore.fetchHotSuggestData()
 
 ### 配置点击搜索跳转路由
 
-```vue
+```javascript
 // router/index.js
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -1113,12 +1097,12 @@ export default router;
 在`App.vue`中使用`route`隐藏`search`底部导航栏，也可以使用样式`top-page`
 
 ```vue
-// app.vue
+<!-- app.vue -->
 <template>
   <div class="app">
     <router-view/>
 
-    // <!-- 方法一：隐藏底部导航栏 -->
+    <!-- 方法一：隐藏底部导航栏 -->
     <tab-bar v-if="!route.meta.hideTabBar"></tab-bar>
   </div>
 </template>
@@ -1132,16 +1116,15 @@ const route = useRoute()
 
 <style scoped>
 </style>
-
 ```
 
 ## 首页分类菜单实现
 
-![](https://secure2.wostatic.cn/static/iaW2g1owSjZNdoJF4xvEot/image.png)
+![首页分类菜单实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_xMgheAWf-X.png)
 
 ### 封装网络请求获取数据
 
-```vue
+```javascript
 // services/modules/home.js
 import myRequest from '../request'
 
@@ -1152,12 +1135,11 @@ export function getHomeCategories() {
     url: "/home/categories"
   })
 }
-
 ```
 
 ### 使用 Pinia 将数据进行状态管理
 
-```vue
+```javascript
 // stores/modules/home.js
 import { getHomeCategories, getHomeHotSuggests } from "@/services/modules/home";
 import { defineStore } from "pinia";
@@ -1181,7 +1163,7 @@ export default useHomeStore
 ### 首页子组件数据展示及样式调整
 
 ```vue
-// home-categories.vue
+<!-- home-categories.vue -->
 <template>
   <div class="categories">
     <template v-for="(item, index) in categories" :key="item.id">
@@ -1207,15 +1189,15 @@ const { categories } = storeToRefs(homeStore)
   height: 80px;
   padding: 0 10px;
   margin-top: 8px;
-  // 超出的部分滚动条显示(水平滚动)
+  /* 超出的部分滚动条显示(水平滚动) */
   overflow-x: auto;
-  // 取消滚动条
+  /* 取消滚动条 */
   &::-webkit-scrollbar {
     display: none;
   }
 
   .item {
-    // 收缩，默认为1，0为放大
+    /* 收缩，默认为1，0为放大 */
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -1236,18 +1218,17 @@ const { categories } = storeToRefs(homeStore)
   }
 }
 </style>
-
 ```
 
 ## 热门精选列表不同类型展示
 
-![](https://secure2.wostatic.cn/static/5AkgUvVzxtuptRiVymrxtu/image.png)
+![热门精选列表不同类型展示](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_uS1yVM9to7.png)
 
 ### 封装网络请求获取数据
 
 对网络请求进行分页处理，`axios`传参使用`params`
 
-```vue
+```javascript
 // services/home.js
 import myRequest from '../request'
 
@@ -1259,14 +1240,13 @@ export function getHomeHouselist(currentPage) {
     }
   })
 }
-
 ```
 
 ### Pinia 状态管理
 
 加载更多这里要使用数组的`push`方法，将数据存入 houselist，每次发起网络请求时`currentPage`需要加一（**这里使用按钮手动加载更多**，后续有其它方法详细讲解）
 
-```vue
+```javascript
 // stores/home.js
 import { getHomeCategories, getHomeHotSuggests, getHomeHouselist } from "@/services/modules/home";
 import { defineStore } from "pinia";
@@ -1291,7 +1271,7 @@ export default useHomeStore
 
 ### 父组件 home 中调用 actions 中的请求
 
-```vue
+```javascript
 // home.vue
 <script setup>
   homeStore.fetchHouselistData()
@@ -1306,7 +1286,7 @@ export default useHomeStore
 ### 编写 home 下的列表内容子组件
 
 ```vue
-// home-content.vue
+<!-- home-content.vue -->
 <template>
   <div class="content">
     <h2 class="title">热门精选</h2>
@@ -1344,22 +1324,21 @@ const { houseList } = storeToRefs(homeStore)
 
   .list {
     display: flex;
-    // 换行
+    /* 换行 */
     flex-wrap: wrap;
   }
 }
 </style>
-
 ```
 
 ### 抽取两个列表中不同类型的组件
 
 类型一
 
-![](https://secure2.wostatic.cn/static/LW5CaK7NZhWjuCRUtPNfA/image.png)
+![类型一](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_ARyfBQP4yJ.png)
 
 ```vue
-// house-item-type1
+<!-- house-item-type1 -->
 <template>
   <div class="house-item">
     <div class="item-inner">
@@ -1395,27 +1374,27 @@ const itemScore = computed(() => {
 
 <style lang="less" scoped>
 .house-item {
-  // 整个宽度各占一半
+  /* 整个宽度各占一半 */
   width: 50%;
 
   .item-inner {
-    // 相对定位微调
+    /* 相对定位微调 */
     position: relative;
     margin: 5px;
     background: #fff;
     border-radius: 6px;
-    // 把图片超出宽度50%的部分隐藏
+    /* 把图片超出宽度50%的部分隐藏 */
     overflow: hidden;
 
     .cover {
       img {
-        // 上面overflow后将图片恢复比例
+        /* 上面overflow后将图片恢复比例 */
         width: 100%;
       }
     }
 
     .info {
-      // 绝对定位后将文字信息放在图片底部
+      /* 绝对定位后将文字信息放在图片底部 */
       position: absolute;
       bottom: 0;
       padding: 8px 10px;
@@ -1427,7 +1406,7 @@ const itemScore = computed(() => {
 
       .name {
         margin: 5px 0;
-        // 以下4行表示使文字显示2行
+        /* 以下4行表示使文字显示2行 */
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -1444,10 +1423,9 @@ const itemScore = computed(() => {
   }
 }
 </style>
-
 ```
 
-![](https://secure2.wostatic.cn/static/ee5jgQ5mrebjtynbtQQGZ/image.png)
+![类型二](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_ab5bxtuwbs.png)
 
 类型二
 
@@ -1459,15 +1437,15 @@ const itemScore = computed(() => {
         <img :src="itemData.image.url" alt="">
       </div>
       <div class="info">
-        // 位置信息
+        <!-- 位置信息 -->
         <div class="location">
           <img src="@/assets/img/home/location.png" alt="">
           <span>{{ itemData.location }}</span>
         </div>
-        // 文本内容
+        <!--文本内容 -->
         <div class="name">{{ itemData.houseName }}</div>
         <div class="summary">{{ itemData.summaryText }}</div>
-        // 价格（新、旧、折扣）
+        <!--价格（新、旧、折扣）-->
         <div class="price">
           <div class="new"> ¥ {{ itemData.finalPrice }}</div>
           <div class="old"> ¥ {{ itemData.productPrice }}</div>
@@ -1491,19 +1469,19 @@ const props = defineProps({
 
 <style lang="less" scoped>
 .house-item {
-  // 整个宽度各占一半
+  /* 整个宽度各占一半 */
   width: 50%;
 
   .item-inner {
     margin: 5px;
     background: #fff;
     border-radius: 6px;
-    // 把图片超出宽度50%的部分隐藏
+    /* 把图片超出宽度50%的部分隐藏 */
     overflow: hidden;
 
     .cover {
       img {
-        // 上面overflow后将图片恢复比例
+        /* 上面overflow后将图片恢复比例 */
         width: 100%;
       }
     }
@@ -1515,9 +1493,9 @@ const props = defineProps({
 
       .location {
         display: flex;
-        // 上下居中
+        /* 上下居中 */
         align-items: center;
-        // 设置地理位置图标
+        /* 设置地理位置图标 */
         img {
           width: 12px;
           height: 12px;
@@ -1535,7 +1513,7 @@ const props = defineProps({
         font-size: 14px;
         color: #333;
 
-        // 以下表示使文字显示2行
+        /* 以下表示使文字显示2行 */
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -1557,7 +1535,7 @@ const props = defineProps({
           margin: 0 3px;
           color: #999;
           font-size: 12px;
-          // 中间划线
+          /* 中间划线 */
           text-decoration: line-through;
         }
 
@@ -1585,7 +1563,7 @@ const props = defineProps({
 **注意：这里不能给该组件设置高度，否则不再是\*\***`window`\***\*对象，从而监听失效**
 
 ```vue
-// home.vue
+<!-- home.vue -->
 <script setup>
   // 窗口滚动事件监听
   const scrollListenerHandle = () => {
@@ -1618,14 +1596,13 @@ const props = defineProps({
     }
   }
 </style>
-
 ```
 
 ### 抽取 hooks 滚动事件
 
 使用变量`isReachBottom`记录是否滚动到底部，相比于使用回调简单
 
-```vue
+```javascript
 // hooks/useScroll.js
 import { onMounted, onUnmounted, ref } from 'vue';
 
@@ -1660,7 +1637,7 @@ export default function useScroll(){
 
 主页调用`hooks`函数，使用`watch`监听`isReachBottom`变化（这里可用`computed`，但是监听变化后执行 js 逻辑一般用`watch`）
 
-```vue
+```javascript
 // home.js
 <script setup>
   import useScroll from '@/hooks/useScroll';
@@ -1675,7 +1652,6 @@ export default function useScroll(){
     }
   })
 </script>
-
 ```
 
 ### 使用节流 throttle 优化窗口滚动
@@ -1684,7 +1660,7 @@ export default function useScroll(){
 
 使用：`throttle(() ⇒ {}, 100)`
 
-```vue
+```javascript
   // hooks/useScroll.js
   import { throttle } from 'underscore'
 
@@ -1704,7 +1680,7 @@ export default function useScroll(){
 
 Dom 元素加了`overflow-y:auto`
 
-```vue
+```javascript
 // hooks/useScroll.js
 import { onMounted, onUnmounted, ref } from 'vue';
 import { throttle } from 'underscore'
@@ -1748,23 +1724,22 @@ export default function useScroll(elRef){
 
   return { isReachBottom, clientHeight, scrollTop, scrollHeight }
 }
-
 ```
 
 ## 搜索工具栏的封装和实现
 
-![](https://secure2.wostatic.cn/static/tk1S2vkfEEkJ5JCKTp5mY1/image.png)
+![搜索工具栏的封装和实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_JEJMwuyKUS.png)
 
 ### 搜索框滚动显示控制
 
 滚动到窗口的 360 个像素时才显示搜索框
 
 ```vue
-// home.vue
+<!-- home.vue -->
 <template>
   <div class="home">
     <home-nav-bar/>
-    // ...
+    <!-- ... -->
     <home-search-box/>
     <home-categories/>
     <div class="search-bar" v-if="isShowSearchBar">
@@ -1791,7 +1766,7 @@ export default function useScroll(elRef){
 </script>
 
 <style lang="less" scoped>
-  // 搜索工具栏固定定位
+  /* 搜索工具栏固定定位 */
   .search-bar {
     position: fixed;
     z-index: 9;
@@ -1803,13 +1778,12 @@ export default function useScroll(elRef){
     background-color: #fff;
   }
 </style>
-
 ```
 
 ### 将搜索工具栏封装为公共组件
 
 ```vue
-// src/components/search-bar.vue
+<!-- src/components/search-bar.vue -->
 <template>
   <div class="search">
     <div class="select-time">
@@ -1861,14 +1835,14 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
 
   .select-time {
     display: flex;
-    // 按列flex布局
+    /* 按列flex布局 */
     flex-direction: column;
 
     .item {
       display: flex;
       flex-direction: row;
       align-items: center;
-      // 使得行高与默认字体的默认比例保持一致
+      /* 使得行高与默认字体的默认比例保持一致 */
       line-height: normal;
       font-size: 10px;
 
@@ -1877,7 +1851,7 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
       }
 
       .date {
-        // 相对定位微调
+        /* 相对定位微调 */
         position: relative;
         margin: 0 10px 0 3px;
         font-weight: 500;
@@ -1885,7 +1859,7 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
       }
     }
 
-    // 设置一个小角标
+    /* 设置一个小角标 */
     .end .date::after {
       content: " ";
       width: 0;
@@ -1944,12 +1918,11 @@ const endDateStr = computed(() => formatMonthDay(endDate.value, "MM.DD"))
   }
 }
 </style>
-
 ```
 
 ### 将日期存入全局状态管理库 mainStore
 
-```vue
+```javascript
 // store/main.js
 import { defineStore } from "pinia";
 
@@ -1968,17 +1941,16 @@ export const useMainStore = defineStore("main", {
     isLoading: false
   })
 })
-
 ```
 
 ## Loding 数据加载实现
 
-![](https://secure2.wostatic.cn/static/h22bT8uEATjRqMpV2uW74w/image.png)
+![Loding 数据加载实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_65AZFHeNdb.png)
 
 ### 搭建 loading 页面组件
 
 ```vue
-// components/loading/loading.vue
+<!-- components/loading/loading.vue -->
 <template>
   <div class="loading" v-show="mainStore.isLoading" @click="loadingClick">
     <div class="bg">
@@ -2028,12 +2000,11 @@ export const useMainStore = defineStore("main", {
     }
   }
 </style>
-
 ```
 
 ### 将 bool 型的 loading 标识符存入 pinia
 
-```vue
+```javascript
 // stores/modules/main.js
 import { defineStore } from "pinia";
 
@@ -2052,15 +2023,14 @@ export const useMainStore = defineStore("main", {
     isLoading: false
   })
 })
-
 ```
 
 ### 使用 axios 拦截器对 loading 标识符进行控制
 
 每次发起请求前显示`loading`，结束请求后隐藏`loading`，对`axios`实例进行拦截
 
-```vue
- // services.request.index.js
+```javascript
+// services.request.index.js
 import axios from 'axios'
 import { BASE_URL, TIMEOUT } from './config'
 import { useMainStore } from '@/stores/modules/main'
@@ -2100,10 +2070,10 @@ class MyRequest {
 给 2 个不同类型的列表组件上绑定点击事件（点击事件默认传递到子组件的根上，若有多个根需要使用$attrs，详细看组件化开发 props 注意事项），实现路由跳转
 
 ```vue
-// home-content.vue
+<!-- home-content.vue -->
 <template>
   <div class="content">
-      // ...
+      <!-- ... -->
       <template v-for="(item, index) in houseList" :key="item.data.houseId">
         <house-item-type1
           v-if="item.discoveryContentType === 9"
@@ -2130,23 +2100,22 @@ class MyRequest {
 
 配置详情页路由表，创建`detail.vue`页面（后续会讲）
 
-```vue
+```javascript
 // router/index.js
 {
   path:"/detail/:id",
   component: () => import("@/views/detail/detail.vue"),
 }
-
 ```
 
 ### 详情页轮播图实现
 
-![](https://secure2.wostatic.cn/static/wzUr39qtMNRXbxpQr43uCL/image.png)
+![详情页轮播图实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_HdVTi_YZMr.png)
 
 使用 Vant 组件库的`<van-swipe>`，并做进一步封装
 
 ```vue
-// detail/components/detail-swipe.vue
+<!-- detail/components/detail-swipe.vue -->
 <template>
   <div class="swipe">
     <van-swipe class="swipe-list" :autoplay="3000" indicator-color="white">
@@ -2181,13 +2150,12 @@ const props = defineProps({
   }
 }
 </style>
-
 ```
 
 引入自定义封装的轮播组件到父组件进行调用，导航栏使用 Vant 中的`<van-nav-bar>`，并监听返回按钮点击（这里未使用 pinia 进行状态管理）
 
 ```vue
-// detail/detail.vue
+<!-- detail/detail.vue -->
 <template>
   <div class="detail top-page">
     <van-nav-bar title="房屋详情" left-text="旅途" left-arrow  @click-left="onClickLeft"/>
@@ -2227,22 +2195,22 @@ const onClickLeft = () => {
 
 ### 自定义轮播图指示器
 
-![](https://secure2.wostatic.cn/static/5sgLxwxVttWcMmVvJEiJX/image.png)
+![自定义轮播图指示器](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_vgR0Cq8QtL.png)
 
 预处理分类数据，格式如：`{"2": [item1, item2, item3 ...], "4": [itemx, itemy, itemz ...], "9": [itema, itemb, itemc ...]}`，`"2"`代表卧室`id`
 
 ```vue
-// detail/components/detail-swipe.vue
+<!-- detail/components/detail-swipe.vue -->
 <template>
   <div class="swipe">
     <van-swipe class="swipe-list" :autoplay="3000" indicator-color="white">
-      // ...
+      <!-- ... -->
 
-      // <!-- 默认是圆点，这里是作用域插槽和具名插槽,对props解构（active是选中的指示器） -->
+      <!-- 默认是圆点，这里是作用域插槽和具名插槽,对props解构（active是选中的指示器） -->
       <template #indicator="{ active, total }">
         <div class="indicator">
           <template v-for="(value, key, index) in swipeGroup" :key="key">
-            // <!-- 选中的一组动态绑定class样式，显示数字(这里key是字符串类型) -->
+            <!-- 选中的一组动态绑定class样式，显示数字(这里key是字符串类型) -->
             <span class="item" :class="{ active: swipeData[active]?.enumPictureCategory == key }">
               <span class="text">{{ getName(value[0].title) }}</span>
               <span class="count" v-if="swipeData[active]?.enumPictureCategory == key">
@@ -2257,7 +2225,6 @@ const onClickLeft = () => {
 </template>
 
 <script setup>
-
 const props = defineProps({
   swipeData: {
     type: Array,
@@ -2337,19 +2304,18 @@ const getCategoryIndex = (item) => {
   }
 }
 </style>
-
 ```
 
 ### 详情页顶部房屋信息展示
 
-![](https://secure2.wostatic.cn/static/3cXK53NfSuyCbnFays2Nqp/image.png)
+![详情页顶部房屋信息展示](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_fQt-F5ARFl.png)
 
 子组件使用`defineProps`从组件中获取数据，父组件`detail.vue`在使用子组件时传值（从`mainPart.topModule`获取值传给`topInfos`）
 
 `<detail-infos :top-infos="mainPart.topModule"/>`
 
 ```vue
-// detail/detail-infos.vue
+<!-- detail/detail-infos.vue -->
 <template>
   <div class="infos">
     <div class="name">{{ topInfos.houseName }}</div>
@@ -2459,12 +2425,12 @@ defineProps({
 
 ### 内容详情区域插槽组件封装
 
-![](https://secure2.wostatic.cn/static/eYXiSGr8aZnaAwGw9hezwb/image.png)
+![内容详情区域插槽组件封装](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_FXeWN43dHG.png)
 
 使用插槽封装公共组件，以便更多的内容详情区域使用（如房屋设施展示，房东介绍展示，热门评论展示等，这里只写房屋设施展示，主要是 HTML 和 CSS 的搭建）
 
 ```vue
-// components/detail-section/detail-section.vue
+<!-- components/detail-section/detail-section.vue -->
 <template>
   <div class="section">
     <div class="header">
@@ -2485,7 +2451,6 @@ defineProps({
 </template>
 
 <script setup>
-
 defineProps({
   title: {
     type: String,
@@ -2496,7 +2461,6 @@ defineProps({
     default: '默认更多'
   }
 })
-
 </script>
 
 <style lang="less" scoped>
@@ -2532,7 +2496,6 @@ defineProps({
     }
   }
 </style>
-
 ```
 
 ### 房屋设施内容区域实现
@@ -2540,26 +2503,25 @@ defineProps({
 调用内容详情区域插槽组件，组件上传入`title`和`more-text`，父组件`detail.vue`中引入`detail-facility`
 
 ```vue
-// detail.vue
+<!-- detail.vue -->
 <detail-facility :house-facility="mainPart.dynamicModule.facilityModule.houseFacility"/>
-
 ```
 
 ```vue
-// detail/components/detail-facility.vue
+<!-- detail/components/detail-facility.vue -->
 <template>
   <div class="facility">
     <detail-section title="房屋设施" more-text="查看全部设施">
       <div class="facility-inner">
         <template v-for="(item, index) in houseFacility.houseFacilitys" :key="index">
-          // <!-- 根据facilitySort来显示对应索引下的数据 -->
+          <!-- 根据facilitySort来显示对应索引下的数据 -->
           <div class="item" v-if="houseFacility.facilitySort?.includes(index)">
             <div class="head">
               <img :src="item.icon" alt="">
               <div class="text">{{ item.groupName }}</div>
             </div>
             <div class="list">
-              // <!-- 每个groupName下截取4个数据 -->
+              <!-- 每个groupName下截取4个数据 -->
               <template v-for="(iten, indey) in item.facilitys.slice(0, 4)" :key="indey">
                 <div class="iten">
                   <i class="icon_check icon"></i>
@@ -2640,7 +2602,7 @@ defineProps({
 ### Detail 详细页面父组件
 
 ```vue
-// detail.vue
+<!-- detail.vue -->
 <template>
   <div class="detail top-page">
     <van-nav-bar title="房屋详情" left-text="旅途" left-arrow  @click-left="onClickLeft"/>
@@ -2694,7 +2656,6 @@ const onClickLeft = () => {
 </script>
 
 <style lang="less" scoped>
-
 .footer {
   display: flex;
   flex-direction: column;
@@ -2712,12 +2673,11 @@ const onClickLeft = () => {
   }
 }
 </style>
-
 ```
 
 ## 百度地图 SDK 集成和使用
 
-![](https://secure2.wostatic.cn/static/aRYjF5BFteUnoxiXY2Nyj9/image.png)
+![地图](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_RncVLCrlTy.png)
 
 ### 注册百度地图开发者平台
 
@@ -2725,7 +2685,7 @@ const onClickLeft = () => {
 
 1. 创建应用获取 AK
 
-   ![](https://secure2.wostatic.cn/static/eq5WQtvRQaq3RUsqNV5uY7/image.png)
+   ![创建应用](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_Hvhz1liDSB.png)
 
 2. 在 vue3 的`index.html`中引用百度地图 API 文件
 
@@ -2742,7 +2702,7 @@ const onClickLeft = () => {
 - `map.centerAndZoom(point, 15)`：地图初始化，同时设置地图展示级别
 
 ```vue
-// detail/components/detail-map.vue
+<!-- detail/components/detail-map.vue -->
 <template>
   <div class="map">
     <detail-section title="位置周边" more-text="查看更多周边信息">
@@ -2783,19 +2743,18 @@ onMounted(() => {
   height: 250px;
 }
 </style>
-
 ```
 
 ## Tab 标签页滚动和锚点交互实现
 
-![](https://secure2.wostatic.cn/static/urVDRRWk9jrer6FxwjWGuz/image.png)
+![Tab 标签页滚动和锚点交互实现](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_G-5K496l1d.png)
 
 在上文城市分组列表使用过 Vant 组件库中的`<van-tabs>`组件，这里自定义一个标签页组件
 
 ### 自定义 Tab 标签页组件（Vue2）
 
 ```vue
-// tab-control.vue
+<!-- tab-control.vue -->
 <template>
   <div class="tab-control">
     <template v-for="(item, index) in titles" :key="item">
@@ -2858,7 +2817,6 @@ onMounted(() => {
     padding: 8px;
   }
 </style>
-
 ```
 
 ### Tab 标签页的滚动效果初步实现
@@ -2866,12 +2824,12 @@ onMounted(() => {
 需要引入`hooks`下的窗口滚动事件，这里滚动的是父`Dom`元素
 
 ```vue
-// detail.vue
+<!-- detail.vue -->
 <template>
-  // 父dom要挂载detailRef
+  <!-- 父dom要挂载detailRef -->
   <div class="detail top-page" ref="detailRef">
     <tab-control v-if="showTabControl" :titles="['aaa', 'bbb', 'ccc', 'ddd' ]" class="tabs"/>
-    // ...
+    <!-- ... -->
   </div>
 </template>
 
@@ -2888,7 +2846,6 @@ const { scrollTop } = useScroll(detailRef)
 const showTabControl = computed(() => {
   return scrollTop.value >= 300
 })
-
 </script>
 
 <style lang="less" scoped>
@@ -2900,7 +2857,6 @@ const showTabControl = computed(() => {
   top: 0;
 }
 </style>
-
 ```
 
 ### Tab 标签页的锚点定位效果实现
@@ -2913,10 +2869,10 @@ const showTabControl = computed(() => {
 - `offsetTop()`：用于获取元素相对于其父元素的上边距的距离
 
 ```vue
-// detail.vue
+<!-- detail.vue -->
 <template>
   <div class="detail top-page" ref="detailRef">
-    // <!-- 这里的tabItemClick是由子组件定义好传过来的 -->
+    <!-- 这里的tabItemClick是由子组件定义好传过来的 -->
     <tab-control
       v-if="showTabControl"
       :titles="['描述', '设施', '房东', '评论', '须知' ]"
@@ -2961,7 +2917,6 @@ const tabClick = (index) => {
   })
 }
 </script>
-
 ```
 
 **方法二**
@@ -2969,10 +2924,10 @@ const tabClick = (index) => {
 在每一个组件上加上`name`属性，实现动态获取`tab`标签页的`name`
 
 ```vue
-// detail.vue
+<!-- detail.vue -->
 <template>
   <div class="detail top-page" ref="detailRef">
-    // <!-- 这里的tabItemClick是由子组件定义好传过来的 -->
+    <!-- 这里的tabItemClick是由子组件定义好传过来的 -->
     <tab-control
       v-if="showTabControl"
       :titles="names"
@@ -3028,7 +2983,6 @@ const tabClick = (index) => {
   })
 }
 </script>
-
 ```
 
 ### 页面滚动匹配 Tab 标签页索引
@@ -3048,11 +3002,10 @@ const tabClick = (index) => {
       }
     }
     console.log("value:", currentValue, "index:", currentIndex)
-
 ```
 
 ```vue
-// detail.vue
+<!-- detail.vue -->
 <template>
   <div class="detail top-page" ref="detailRef">
     <tab-control
@@ -3062,7 +3015,7 @@ const tabClick = (index) => {
       class="tabs"
       ref="tabControlRef"
     />
-    // ...
+    <!-- ... -->
 </template>
 
 <script setup>
@@ -3103,10 +3056,10 @@ const tabClick = (index) => {
 缓存主页状态，从而在组件切换时保留其状态而不重新渲染，且不再重复发起网络请求（需要在主页里面使用`Vue2`语法绑定组件的`name`属性，Vue3 中没有这样的属性）
 
 ```vue
-// app.vue
+<!-- app.vue -->
 <template>
   <div class="app">
-    // <!-- 绑定组件的name属性 -->
+    <!-- 绑定组件的name属性 -->
     <router-view v-slot="props">
       <keep-alive include="home">
         <component :is="props.Component"></component>
@@ -3117,10 +3070,9 @@ const tabClick = (index) => {
     <loading/>
   </div>
 </template>
-
 ```
 
-```vue
+```javascript
 // home.vue
 <script>
   // vue2语法使keep-alive绑定name属性
@@ -3134,10 +3086,10 @@ const tabClick = (index) => {
 首先要取消主页的`window`监听滚动事件，改为`Dom`元素监听，不然切换时会有`bug`。使用`ref`引用`Dom`元素
 
 ```vue
-// home.vue
+<!-- home.vue -->
 <template>
   <div class="home" ref="homeRef">
-    // ...
+    <!-- ... -->
   </div>
 </template>
 <script>
@@ -3176,7 +3128,6 @@ onActivated(() => {
 ```html
 <!--index.html-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-
 ```
 
 ### 单位统一转换 px 转 vw
@@ -3202,5 +3153,4 @@ module.exports = {
     }
   }
 };
-
 ```
