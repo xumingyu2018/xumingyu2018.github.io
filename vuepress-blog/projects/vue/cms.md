@@ -119,7 +119,6 @@ class HYRequest {
 }
 
 export default HYRequest
-
 ```
 
 ```typescript
@@ -152,7 +151,6 @@ const hyRequest = new HYRequest({
 })
 
 export default hyRequest
-
 ```
 
 ```typescript
@@ -215,13 +213,13 @@ module.exports = {
 
 ## 实现登录页面
 
-![](https://secure2.wostatic.cn/static/hEmsB97qM1Pqq5HXqCahJc/image.png?auth_key=1692714182-myJuyHE6qti9wzkRprRRBu-0-fd1929b0a826ccee7cdac4d32098762e)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_EgQqzVLzYM.png)
 
 ### 设置 App 宽高铺满屏幕
 
 注意这里不能用%号
 
-```vue
+```css
 <style scoped>
 .app {
   /* 不能使用%，因为相对于父元素；vh相对于视口 */
@@ -305,7 +303,6 @@ import 'element-plus/theme-chalk/el-message.css'
 // 安装vite-plugin-style-import/consola并配置vite.config.ts（自动按需引入样式）
 
 createApp(App).use(router).use(pinia).use(registerIcons).mount('#app')
-
 ```
 
 #### 实现登录面板父组件
@@ -412,7 +409,6 @@ const handleLoginBtnClick = () => {
   }
 }
 </style>
-
 ```
 
 #### 封装面板中登录表单子组件
@@ -505,7 +501,6 @@ export interface IAccount {
 
 // types/index.ts(统一导出)
 export * from './login'
-
 ```
 
 #### 封装 axios 登录请求
@@ -520,7 +515,6 @@ export function accountLoginRequest(account: IAccount) {
         data: account
     })
 }
-
 ```
 
 #### 使用 pinia 存储请求数据(在`pane-account`组件中调用)
@@ -692,7 +686,6 @@ function loginAction(isRemPwd: boolean) {
     }
   })
 }
-
 ```
 
 ### 实现获取登录用户详细信息（包括角色权限菜单）
@@ -763,7 +756,7 @@ export default useLoginStore
 
 ## 实现主页左侧导航栏
 
-![](https://secure2.wostatic.cn/static/k1FTgme1ezTAH36tihiQ15/image.png?auth_key=1692714258-eBCxE2MWbDGHuwFKHMNuTS-0-d6c434ac984a7a4498961fa74809b3f0)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_Omxnqoo1Oj.png)
 
 ### 整体容器布局
 
@@ -818,7 +811,6 @@ export default useLoginStore
   }
 }
 </style>
-
 ```
 
 ### 实现左侧导航栏静态布局
@@ -915,14 +907,13 @@ export default useLoginStore
   }
 }
 </style>
-
 ```
 
 ### 实现左侧导航栏动态展示效果
 
 首先将用户详细信息，权限信息缓存处理（刷新时依然存在），然后使用`<template v-for="">`、`mustache`表达式动态遍历即可。
 
-```vue
+```typescript
 // 登录时store缓存用户权限信息
 state: (): ILoginState => ({
     // ...
@@ -940,7 +931,6 @@ actions: {
         router.push('/main')
     }
 }
-
 ```
 
 ```vue
@@ -987,7 +977,6 @@ function handleItemClick(subItem: any) {
   router.push(url)
 }
 </script>
-
 ```
 
 ### 导航栏图标的动态组件（细节处理）
@@ -1003,7 +992,7 @@ function handleItemClick(subItem: any) {
     </el-icon>
     <span>{{ item.name }}</span>
   </template>
-  // .......
+  //.......
 </el-sub-menu>
 ```
 
@@ -1011,7 +1000,7 @@ function handleItemClick(subItem: any) {
 
 当用户没有权限时，可以手动在地址栏输入 url 去访问没有权限的页面。后面使用动态路由。
 
-```vue
+```typescript
 {
   path: '/main',
   component: () => import('../views/main/Main.vue'),
@@ -1039,7 +1028,7 @@ function handleItemClick(subItem: any) {
 
 ## 实现主页头部面包屑
 
-![](https://secure2.wostatic.cn/static/qtx8xmpZnWgke1ogQXaq5n/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_Or2gIT2k8K.png)
 
 ### 搭建整体布局
 
@@ -1080,7 +1069,6 @@ function handleItemClick(subItem: any) {
   }
 }
 </style>
-
 ```
 
 ### 实现头部左侧图标点击折叠功能
@@ -1088,7 +1076,7 @@ function handleItemClick(subItem: any) {
 由`main-header`子组件通过`defineEmits`将折叠状态`isFold`传入给父组件`main`中的`el-aside`从而控制其宽度。
 
 ```vue
-// main-header.vue
+<!-- main-header.vue -->
 <template>
   <div class="main-header">
     <div class="menu-icon" @click="handleMenuIconClick">
@@ -1124,7 +1112,7 @@ function handleMenuIconClick() {
 父组件在定义`main-header`上通过`@fold-change`接收子组件传来的`emit('foldChange', isFold.value)`。
 
 ```vue
-// main.vue
+<!-- main.vue -->
 <template>
   <div class="main">
     <el-container class="main-content">
@@ -1161,7 +1149,7 @@ function handleFoldChange(isFoldValue: boolean) {
 父组件通过子组件的`defineProps`将`:is-fold="isFold"`折叠状态传入到`el-menu`的属性`:collapse`上，从而控制`menu`菜单的折叠。
 
 ```vue
-// main-menu.vue
+<!-- main-menu.vue -->
 <template>
   <div class="main-menu">
     // ....
@@ -1183,7 +1171,6 @@ defineProps({
   }
 })
 </script>
-
 ```
 
 ### 实现头部右侧个人信息功能
@@ -1307,12 +1294,11 @@ const loginStore = useLoginStore()
   }
 }
 </style>
-
 ```
 
 ## 动态路由
 
-![](https://secure2.wostatic.cn/static/oFj2Q945VD4Dv4kdaW3sqn/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_Or2gIT2k8K.png)
 
 本文采用基于菜单的动态路由管理实现（结合 coderwhy 全局工具）。
 
@@ -1335,7 +1321,7 @@ const loginStore = useLoginStore()
 1. 根据菜单映射对应的路由。
 2. 进入主页匹配第一个菜单的路由。
 
-```vue
+```typescript
 // utils/map-menus.ts
 import type { RouteRecordRaw } from "vue-router"
 
@@ -1386,7 +1372,7 @@ export function mapMenuToRoutes(menus: any[]) {
 
 弊端：刷新时路由注册不了，代码重新执行时，动态路由就加载不了，因为只有点击登录按钮时才会执行该代码。
 
-```vue
+```typescript
 // store/login/login.ts
 interface ILoginState {
     // ...
@@ -1418,7 +1404,7 @@ export default useLoginStore
 
 `router.addRoute('main', route)`里的 main 是需要在路由表中设置`name`属性。
 
-```vue
+```typescript
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [
@@ -1449,7 +1435,7 @@ export default router
 
 不再仅限于在登录时调用`mapMenuToRoutes`工具类，而在全局当刷新页面时调用。
 
-```vue
+```typescript
 const useLoginStore = defineStore('login', {
     state: (): ILoginState => ({
         token: '',
@@ -1486,8 +1472,7 @@ const useLoginStore = defineStore('login', {
 
 在 App 组件中调用`loadLocalDataAction`方法，注意：此方法一定要放在`app.router`之前执行。
 
-```vue
-// App.vue
+```typescript
 const app = createApp(App)
 app.use(pinia)
 const loginStore = useLoginStore()
@@ -1496,12 +1481,11 @@ loginStore.loadLocalDataAction()
 app.use(router)
 app.use(registerIcons)
 app.mount('#app')
-
 ```
 
 可以将`loadLocalDataAction`方法封装进`pinia`导出的地方，从而使用`app.use()`方法注册进全局 App 组件。
 
-```vue
+```typescript
 //store/index.js
 import { createPinia } from "pinia";
 import useLoginStore from "./login/login";
@@ -1525,14 +1509,13 @@ app.use(store)
 app.use(router)
 app.use(registerIcons)
 app.mount('#app')
-
 ```
 
 ### 进入主页时匹配第一个菜单
 
 从`mapMenuToRoutes`工具类中获取`firstMenu`第一个菜单，在路由导航守卫中判断。
 
-```vue
+```typescript
 import { firstMenu } from '@/utils/map-menus'
 
 const router = createRouter({
@@ -1554,7 +1537,7 @@ export default router
 
 根据路由的`url`路径，映射对应菜单`menu`（需要一个路由映射菜单的工具类），从而获得`menu`的`id`属性，将`el-menu`组件属性`:default-active="defaultValue"`的`defaultValue`动态绑定给`menu.id`。
 
-```vue
+```typescript
 // utils/map-menus.ts
 /**
  * 映射路由到菜单工具类
@@ -1572,7 +1555,7 @@ export function mapPathToMenu(menus: any[], path: string) {
 ```
 
 ```vue
-// main-menu.vue
+<!-- main-menu.vue -->
 <template>
   <div class="main-menu">
     // ....
@@ -1606,14 +1589,14 @@ const defaultValue = computed(() => {
 
 ## 实现面包屑功能
 
-![](https://secure2.wostatic.cn/static/97uxoUbD17xWuhYbrNVid1/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_OrlIEIPhXw.png)
 
 ### 搭建面包屑页面
 
 使用`el-breadcrumb`搭建面包屑页面，使用工具类`mapPathToBreadCrumb`将菜单`menu`以及子菜单`submenu`放入`breadcrumb`数组，用于动态遍历`el-breadcrumb`。
 
 ```vue
-// header-crumb.vue
+<!-- header-crumb.vue -->
 <template>
   <div class="header-crumb">
     <el-breadcrumb separator-icon="ArrowRight">
@@ -1644,7 +1627,7 @@ const breadcrumb = computed(() => {
 
 `mapPathToBreadCrumb`工具类
 
-```vue
+```typescript
 // map-menus.ts
 export function mapPathToBreadCrumb(menus: any[], path: string) {
     const breadCrumb: any[] = []
@@ -1665,7 +1648,7 @@ export function mapPathToBreadCrumb(menus: any[], path: string) {
 
 `el-breadcrumb`的`:to=item.url`属性问题，修改工具类`mapMenuToRoutes`将根目录路径重定向到根目录下的第一个子目录。
 
-```vue
+```typescript
 export function mapMenuToRoutes(menus: any[]) {
     // ...
     const finalRoutes: RouteRecordRaw[] = []
@@ -1694,14 +1677,14 @@ export function mapMenuToRoutes(menus: any[]) {
 
 ### 实现 search 表单搜索框界面
 
-![](https://secure2.wostatic.cn/static/oeywjBVRfpkUuQSiZSgj8M/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_8g3h9E3Wpj.png)
 
 #### 搭建静态 search 表单搜索框界面
 
 通过`layout`布局组件中的`el-row`和`el-col`对每行每列做布局，使用`el-form`表单组件包含的`el-input`输入框、`el-select`下拉选择以及`el-date-picker`日期选择器实现。
 
 ```vue
-// user/cpns/user-search.vue
+<!-- user/cpns/user-search.vue -->
 <template>
   <div class="search">
     <el-form label-width="120px" size="large">
@@ -1776,7 +1759,7 @@ export function mapMenuToRoutes(menus: any[]) {
 对日期选择器里的日期实现国际化。[Element Plus](https://element-plus.gitee.io/zh-CN/guide/i18n.html) 提供了一个 Vue 组件 [ConfigProvider](https://element-plus.gitee.io/en-US/component/config-provider.html) （`el-config-provider`）用于全局配置国际化的设置。（需要包裹 App 组件）并在`env.d.ts`中声明`.mjs`文件
 
 ```vue
-// App.vue
+<!-- App.vue -->
 <template>
     <div class="app">
       <!-- 国际化配置（将组件中的英文转为中文->日期组件） -->
@@ -1799,7 +1782,6 @@ declare module '*.vue' {
 
 // 声明国际化配置文件mjs
 declare module '*.mjs'
-
 ```
 
 #### 实现重置功能
@@ -1856,7 +1838,7 @@ function handleResetClick() {
 
 ### 实现展示用户列表功能
 
-![](https://secure2.wostatic.cn/static/hvmWHgnMCqqF1hKgZT64pQ/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_QJax7-SQRM.png)
 
 #### 使用 pinia 发起获取用户数据请求
 
@@ -2084,7 +2066,7 @@ import { formatUTC } from '@/utils/format';
 
 ### 实现分页功能
 
-![](https://secure2.wostatic.cn/static/wdmWHB3M9KTmPDFXj5Wve6/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_N1AqUvRrLC.png)
 
 #### 从请求接口中获取`offset`和`size`分页数据。
 
@@ -2174,12 +2156,11 @@ function fetchUserListData() {
     margin-top: 10px;
 }
 </style>
-
 ```
 
 ### 实现查询用户功能
 
-![](https://secure2.wostatic.cn/static/ZU6FzP3sKV8Sdjrqc8PYh/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_-2ElEwJZek.png)
 
 #### 通过事件将表单内容传递给父组件
 
@@ -2218,7 +2199,6 @@ function handleQueryClick() {
     emit('queryClick', searchForm)
 }
 </script>
-
 ```
 
 #### 父组件接受事件并调用另一个子组件暴露的函数
@@ -2252,7 +2232,6 @@ function handleResetClick() {
 <style lang="less" scoped>
 
 </style>
-
 ```
 
 ```typescript
@@ -2278,12 +2257,11 @@ defineExpose({
     fetchUserListData
 })
 </script>
-
 ```
 
 ### 实现删除用户功能
 
-![](https://secure2.wostatic.cn/static/aX3DHhVE3tdWi7KgXFukZ6/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_JyyGiGUc-9.png)
 
 通过作用域插槽获取当前点击删除按钮那一行的用户`id`，即`scope.row.id`，将`id`传入用户删除接口。
 
@@ -2353,12 +2331,11 @@ function handleDeleteClick(id) {
 }
 
 </script>
-
 ```
 
 ### 实现新增用户功能
 
-![](https://secure2.wostatic.cn/static/kiR4cMYTVrkxP3VvGP72Rz/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_YsaeThWQO2.png)
 
 由于新建用户按钮在`user-content.vue`页面中，与`user-modal.vue`是兄弟组件，需要用到组件通信，由`user-content.vue`发起事件`defineEmits()`
 
@@ -2459,7 +2436,6 @@ function handleNewData() {
     emit('newDataClick')
 }
 </script>
-
 ```
 
 **父组件获取事件**
@@ -2623,7 +2599,6 @@ const mainStore = useMainStore()
 const { entireRoles, entireDepartments } = storeToRefs(mainStore)
 // ...
 </script>
-
 ```
 
 #### 封装新建用户请求接口并调用
@@ -2708,12 +2683,11 @@ function handleConfirmClick() {
     systemStore.newUserDataAction(formData)
 }
 </script>
-
 ```
 
 ### 实现编辑用户功能
 
-![](https://secure2.wostatic.cn/static/2kTCgLjUXD2ooG3Tvr3TMx/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_ONXbS8GUdk.png)
 
 #### 封装修改用户请求接口
 
@@ -2784,7 +2758,6 @@ function handleEditClick(itemData) {
     emit('editDataClick', itemData)
 }
 </script>
-
 ```
 
 父组件接受点击事件。
@@ -2810,7 +2783,6 @@ function handleEditDataClick(itemData: any) {
   modalRef.value?.setDialogVisible(false, itemData)
 }
 </script>
-
 ```
 
 子组件`user-modal`接受父组件传来的方法和参数。对模态框的表单内容进行判断，在编辑数据时除了密码，其它属性都进行回显，`title`变为编辑用户文本。
@@ -2988,7 +2960,7 @@ export interface ISystemState {
 
 ### 封装表单搜索组件
 
-![](https://secure2.wostatic.cn/static/vwRrSUSNbjW7wAgWjK7gp9/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_9XcwMn65Vo.png)
 
 #### 编写表单搜索配置文件
 
@@ -3153,12 +3125,11 @@ import pageSearch from '@/components/page-search/page-search.vue'
 import searchConfig from './config/search.config'
 // ...
 </script>
-
 ```
 
 ### 封装表格内容组件
 
-![](https://secure2.wostatic.cn/static/6zGDaiK1EqPzQCHsgAaWAT/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_V3RocAKr0d.png)
 
 #### 编写表格内容配置文件
 
@@ -3359,7 +3330,6 @@ defineExpose({
   }
 }
 </style>
-
 ```
 
 #### 父组件引用配置文件（后面统一起来整理）
@@ -3404,7 +3374,6 @@ function handleEditDataClick(itemData: any) {
 </script>
 
 <style scoped></style>
-
 ```
 
 #### (进阶)封装自定义的定制作用域插槽
@@ -3488,7 +3457,7 @@ export default contentConfig
 
 ### 封装模态框组件
 
-![](https://secure2.wostatic.cn/static/kbS9pkH3ukfcY4E2cyhBUd/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_rLSWO79LOv.png)
 
 #### 编写模态框内容配置文件
 
@@ -3638,7 +3607,6 @@ defineExpose({
   padding: 10px 30px;
 }
 </style>
-
 ```
 
 #### 将选择器下拉内容 options 改为动态获取接口数据
@@ -3678,7 +3646,6 @@ const modalConfigRef = computed(() => {
 
 // ...
 </script>
-
 ```
 
 ### 页面公共逻辑的 hooks 抽取
@@ -3735,7 +3702,6 @@ export function usePageModal() {
         handleNewDataClick
     }
 }
-
 ```
 
 #### 父组件中调用 hooks。
@@ -3754,7 +3720,7 @@ const { modalRef, handleEditDataClick, handleNewDataClick } = usePageModal()
 
 ## 实现菜单管理功能
 
-![](https://secure2.wostatic.cn/static/7XLVEKxN4tVF4ssBfRRq6H/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_8C-i5wpqZt.png)
 
 ### 实现树形子树的展示
 
@@ -3927,7 +3893,6 @@ defineExpose({
   }
 }
 </style>
-
 ```
 
 使用配置项绑定`row-key`属性。
@@ -4037,7 +4002,6 @@ const modalConfig = {
     ]
 }
 export default modalConfig
-
 ```
 
 父组件`menu.vue`传递配置文件中的配置项。
@@ -4064,7 +4028,6 @@ const { modalRef, handleEditDataClick, handleNewDataClick } = usePageModal()
 
 <style scoped>
 </style>
-
 ```
 
 ## 实现角色管理中的权限分配（难点）
@@ -4073,7 +4036,7 @@ const { modalRef, handleEditDataClick, handleNewDataClick } = usePageModal()
 
 ### 创建角色的菜单树展示
 
-![](https://secure2.wostatic.cn/static/6rSjN4g6PwbrGQjTNx1xjF/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_eZshQ2Ucrq.png)
 
 #### 封装请求接口数据
 
@@ -4085,7 +4048,6 @@ export function getEntireMenus() {
         url: "/menu/list"
     })
 }
-
 ```
 
 ```typescript
@@ -4112,7 +4074,6 @@ const useMainStore = defineStore('main', {
 
 })
 export default useMainStore
-
 ```
 
 #### 在配置文件中定义自定义类型
@@ -4147,7 +4108,6 @@ const modalConfig = {
     ]
 }
 export default modalConfig
-
 ```
 
 #### 编写自定义插槽
@@ -4301,7 +4261,6 @@ function handleConfirmClick() {
   }
 }
 </script>
-
 ```
 
 ### 编辑时角色菜单权限回显
@@ -4330,7 +4289,6 @@ export function mapMenuListToIds(menuList: any[]) {
   recurseGetId(menuList)
   return ids
 }
-
 ```
 
 #### 获取角色权限菜单的数据
@@ -4362,7 +4320,7 @@ export function usePageModal(editCallback?: callbackType) {
 > Vue 是异步执行 dom 更新的，一旦观察到数据变化，Vue 就会开启一个队列，然后把在同一个事件循环 (event loop) 当中观察到数据变化的 watcher 推送进这个队列。如果这个 watcher 被触发多次，只会被推送到队列一次。这种缓冲行为可以有效的去掉重复数据造成的不必要的计算和 DOm 操作。而在下一个事件循环时，Vue 会清空队列，并进行必要的 DOM 更新。  
 > 当你设置 vm.someData = 'new value'，DOM 并不会马上更新，而是在异步队列被清除，也就是下一个事件循环开始时执行更新时才会进行必要的 DOM 更新。如果此时你想要根据更新的 DOM 状态去做某些事情，就会出现问题。。为了在数据变化之后等待 Vue 完成更新 DOM ，可以在数据变化之后立即使用 Vue.nextTick(callback) ，这样回调函数在 DOM 更新完成后就会调用。在 Vue3 中是微任务，Vue2 中不断更新变化。
 
-![](https://secure2.wostatic.cn/static/g74CyDLQpixmcAHwDpCFbs/image.png)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_gYbI_P1Qvc.png)
 
 ```typescript
 <template>
@@ -4430,7 +4388,6 @@ function newCallback(){
 // 编辑角色菜单权限回显...
 }
 </script>
-
 ```
 
 #### hooks 中调用
@@ -4484,7 +4441,6 @@ export function mapMenuListToPermissions(menuList :any) {
 
   return permissions
 }
-
 ```
 
 ### 获取登录用户的所有按钮权限
@@ -4546,7 +4502,6 @@ function usePermission(pageName: string, handleName: string) {
 }
 
 export default usePermission
-
 ```
 
 ### 编写 Page-content 组件
@@ -4618,7 +4573,6 @@ function fetchPageListData(formData: any = {}) {
 }
 // ...
 </script>
-
 ```
 
 ## (细节处理)新增编辑删除操作重置 current 分页
@@ -4730,7 +4684,6 @@ withDefaults(defineProps<IProps>(), {
     }
 }
 </style>
-
 ```
 
 #### 封装网络请求实现动态页面
@@ -4895,7 +4848,6 @@ onMounted(() => {
 
 <script setup lang="ts"></script>
 <style lang="less" scoped></style>
-
 ```
 
 #### 引入 ECharts 的饼图
@@ -5008,7 +4960,6 @@ onMounted(() => {
   height: 250px;
 }
 </style>
-
 ```
 
 ### 三层组件封装 echart
@@ -5182,7 +5133,6 @@ export function getGoodsCategoryCount() {
         url: '/goods/category/count'
     })
 }
-
 ```
 
 #### 封装 pinia 请求数据
@@ -5258,7 +5208,6 @@ const showGoodsCategoryCount = computed(() => {
   }))
 })
 </script>
-
 ```
 
 #### 子组件动态接收饼图 option 数据
@@ -5343,7 +5292,6 @@ export function getGoodsCategoryFavor() {
         url: '/goods/category/favor'
     })
 }
-
 ```
 
 ```typescript
@@ -5386,7 +5334,6 @@ const useAnalysisStore = defineStore('analysis', {
 })
 
 export default useAnalysisStore
-
 ```
 
 #### 封装 Type 类型接口
@@ -5457,7 +5404,6 @@ const option = computed<EChartsOption>(() => {
 })
 </script>
 <style lang="less" scoped></style>
-
 ```
 
 #### 实现折线图数据展示
@@ -5516,7 +5462,6 @@ const option = computed<EChartsOption>(() => {
 </script>
 
 <style lang="less" scoped></style>
-
 ```
 
 #### 实现柱状图数据展示
@@ -5592,7 +5537,6 @@ const option = computed<EChartsOption>(() => {
 </script>
 
 <style lang="less" scoped></style>
-
 ```
 
 #### 父组件将接口数据映射 Echart 需要的数据进行传递使用
@@ -6052,7 +5996,6 @@ export const coordinateData: any = {
   黑河: [127.500830295, 50.2506900907],
   齐齐哈尔: [123.987288942, 47.3476998134]
 }
-
 ```
 
 #### 封装转化坐标信息属性为 echart 地图所需属性工具
@@ -6074,7 +6017,6 @@ export function convertData(data: any) {
     }
     return res
 }
-
 ```
 
 #### echart 注册地图
@@ -6225,8 +6167,6 @@ const option = computed<EChartsOption>(() => {
 </script>
 
 <style lang="less" scoped></style>
-
-
 ```
 
 #### 封装地图商品销量请求数据
@@ -6314,5 +6254,4 @@ const showGoodsAddressSale = computed(() => {
   }))
 })
 </script>
-
 ```
