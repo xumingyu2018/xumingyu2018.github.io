@@ -10,8 +10,6 @@ tag:
 
 ## [项目地址](http://129.204.230.159:8002)
 
-## [项目源码](https://github.com/xumingyu2018/TripSite)
-
 ## 项目结构
 
 ![项目结构](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/image_1vDR4XntPq.png)
