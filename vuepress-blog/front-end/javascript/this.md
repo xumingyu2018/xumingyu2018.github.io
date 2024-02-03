@@ -514,7 +514,7 @@ obj1.foo() // obj1
 obj2.bar = obj1.foo // 将函数地址赋值给 obj2.bar，再调用这个地址上的函数，字面量对象的方法指向该对象
 obj2.bar() // obj2
 
-;(obj2.bar = obj1.foo)() // window
+(obj2.bar = obj1.foo)() // window
 // 赋值表达式 (obj2.foo = obj1.foo) 的结果是 obj1 的 foo 函数
 // foo 函数被 window 直接调用，默认绑定
 ```
@@ -537,8 +537,8 @@ function sayName() {
   let foo = person.sayName
   foo() // window: 独立函数调用
   person.sayName() // person: 隐式调用
-  ;(person.sayName)() // 等价于上行：person: 隐式调用
-  ;(b = person.sayName)() // window: 赋值表达式(独立函数调用)
+  (person.sayName)() // 等价于上行：person: 隐式调用
+  (b = person.sayName)() // window: 赋值表达式(独立函数调用)
 }
 
 sayName()
