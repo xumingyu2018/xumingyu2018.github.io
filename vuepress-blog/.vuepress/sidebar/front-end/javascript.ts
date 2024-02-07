@@ -18,5 +18,6 @@ export const javascript = arraySidebar([
   'async-await',
   'iterator-generator',
   'eventLoop',
+  'throttle-debounce',
   'es6'
 ])
