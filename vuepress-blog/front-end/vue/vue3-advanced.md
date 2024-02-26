@@ -117,9 +117,11 @@ export function observe(  value: any,
 
 export class Observer {
   constructor(    public value: any,
-    public shallow = false // 默认深层响应  ) {
+    public shallow = false // 默认深层响应
+      ) {
     const keys = Object.keys(value);
-    // 遍历每一个属性变成响应式    for (let i = 0; i < keys.length; i++) {
+    // 遍历每一个属性变成响应式
+        for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       defineReactive(value, key, NO_INIITIAL_VALUE, undefined, shallow);
     }
@@ -133,8 +135,10 @@ export function defineReactive(  obj: object,
   shallow?: boolean,
 ) {
   val = obj[key]
-  // 递归遍历，嵌套过深，性能损失  !shallow && observe(val, false, mock)
-  //...}
+  // 递归遍历，嵌套过深，性能损失
+    !shallow && observe(val, false, mock)
+  //...
+  }
 ```
 
 ## vue3源码实现
