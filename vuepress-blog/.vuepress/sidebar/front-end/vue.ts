@@ -9,6 +9,7 @@ export const vue = arraySidebar([
   'vue-router',
   'vuex',
   'vue3-basic',
+  'vue3-advanced',
   'pinia',
   'TabBar-demo'
 ])
