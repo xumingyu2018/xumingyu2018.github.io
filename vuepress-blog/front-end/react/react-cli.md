@@ -3,6 +3,7 @@
 ## 搭建 React 脚手架命令
 
 `npm install create-react-app`
+`npx create-react-app demo`
 
 ## 初始化目录结构
 
