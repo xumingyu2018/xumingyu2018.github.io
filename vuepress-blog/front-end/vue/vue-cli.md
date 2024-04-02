@@ -8,17 +8,17 @@ category:
 
 - 初始化项目：`vue init webpack my-project`（基于 webpack）
 
-![](https://secure2.wostatic.cn/static/jyef7m66eeNJQNeVk8s9ve/image.png?auth_key=1690560802-8dSN2gphvbxfxmboVSf43B-0-71a549e07d1c18ea7fbe65d30e7a97d8)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/undefinedimage_aGZK7-mH4J.png)
 
-![](https://secure2.wostatic.cn/static/5qQVTJ3hJ5Bybedi1UoKYP/image.png?auth_key=1690560802-wzCQC9s2PC5z9r42Cz4jvb-0-c4c75f8f432893681a27892305bba456)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/undefinedimage_YN9U1Jdf-0.png)
 
 ## Vue CLI3
 
 - 初始化项目：`vue create my-project`（基于 webpack）`npm init vue@latest`（基于 vite）
 
-![](https://secure2.wostatic.cn/static/o9cigR9K9WKChZqS59MYwY/image.png?auth_key=1690560802-zH1KTnXj5WhoozBG5KXxu-0-945ee6292f42054c764e58563ea718d8)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/undefinedimage_gymWdxtx2X.png)
 
-![](https://secure2.wostatic.cn/static/hgvd1xx9fZygQMrE7s2bWT/image.png?auth_key=1690560802-5quKFF9unppSrNUbP7nVqN-0-4389143fc09aa888167d3b2e1be07e58)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/undefinedimage_oWpbqSsMku.png)
 
 ## Runtime-Compiler 和 Runtime-only
 
@@ -50,11 +50,11 @@ new Vue({
 
 - `template` → `ast`（Runtime-Compiler）→ `render`→ `vdom`→ `真实dom`
 
-![](https://secure2.wostatic.cn/static/kATpfEFq6hicrFt1BJ5uFT/image.png?auth_key=1690560802-3X9P6uiVTmb6LffuLSinYF-0-154cb9a6fb670bedbaba6a1a031c54e6)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/undefinedimage_M6Iq0bAS2y.png)
 
 ## Vue Cli 的运行原理
 
-![](https://secure2.wostatic.cn/static/s5PRu8NZVD74qpJXjqvPCG/image.png?auth_key=1690560802-jZ1F2azPiw7KzNYXZ5uGfu-0-283c383403bc45a533c4b41bfe6d65d1)
+![](https://nevermore-picbed-1304219157.cos.ap-guangzhou.myqcloud.com/undefinedimage_U64AqXqSQc.png)
 
 ## 脚手架开发
 
@@ -77,8 +77,7 @@ new Vue({
 在`index.js`中添加`node`自动运行`command`脚本命令
 
 ```javascript
-#!/usr/bin/env nodeco
-
+#!/usr/bin/env node
 ```
 
 通过建立`npm` 软链接来测试脚手架搭建（若不建立软链接，需要`npm public`发布之后才能使用）
@@ -116,8 +115,6 @@ program.parse(process.argv);
 
 // 获取额外传递的参数
 console.log(program.opts().dest);
-
-
 ```
 
 创建`lib/core/help-options.js`封装 option 选项
@@ -181,7 +178,6 @@ program
 
 // 让commander解析process.argv参数
 program.parse(process.argv);
-
 ```
 
 在`core/action.js`下封装`createProjectAction`函数
@@ -348,7 +344,6 @@ function writeFile(path, content) {
 }
 
 module.exports = writeFile
-
 ```
 
 #### actions 中调用工具类
@@ -373,7 +368,6 @@ module.exports = {
     // ...
     addComponentAction
 }
-
 ```
 
 ### 第三方工具库
